@@ -1,0 +1,16 @@
+<h1> Checkout home</h1>
+
+<p>{% for product in object.cart.products.all %}{{ product }} {% if not forloop.last %},{% endif %}{% endfor %}</p>
+<p>shipping Address: {{ object.shipping_Address.get_address }}</p>
+<p>Billing Address: {{ object.Billing_Address.get_address }}</p>
+
+<p>Payment Method:{{ billing_profile.default_cards }}
+    <a  href="{{ billing_profile.get_payment_method_url }}">(Change)</a>
+    </p>
+{#        href="{{ billing_profile.get_payment_method_url }}?next={{ request.build_absolute_uri }}">(Change)</a></p>#}
+
+<p>order_id:{{ object.total }}</p>
+<form class="form" method="POST" action="">{% csrf_token %}
+
+    <button type="submit" class="btn btn-success">Finalize Checkout</button>
+</form>

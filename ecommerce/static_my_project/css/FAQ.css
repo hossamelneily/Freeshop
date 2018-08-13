@@ -1,0 +1,21 @@
+.ing {
+	color: #1CB4D1;
+}
+ .FAQ-section {
+	font-size: 1.8em;
+	align-items: center;
+	font-weight: bold;
+	color: #1CB4D1;
+}
+ .separator {
+	width: 90%;
+	height: 3px;
+	background-color: #1CB4D1;
+}
+ .FAQ-title {
+	padding-left: 5%;
+}
+ .page-title {
+	text-align: center;
+	padding: 1.5em;
+}

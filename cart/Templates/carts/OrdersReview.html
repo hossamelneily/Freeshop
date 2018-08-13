@@ -1,0 +1,30 @@
+<div class="col-sm-6 col-md-4 col-md-offset-1">
+       <div class="review-header">Order Review</div>
+       <div class="review-body">
+           {% for product in cart_obj.products.all %}
+          <div class="row conf-item">
+             <a href="{% url "product:detail" slug=product.slug %}">
+                 <img class="item-img-confirmation" alt="" src="{% if product.image %} {{ product.image.url }} {% endif %}">
+             </a>
+             <ul class="conf-item-attr">
+                <li>{{ product.description }}</li>
+                <li>{% for tag in product.tags_set.all %} {% if  tag.Brand %}{{ tag.Brand }}{% else %} Not Specified{% endif %} {% endfor %}</li>
+                <li>Size: M</li>
+                <li>Price: {{ product.price }} KWD</li>
+                <li>Quantity:1</li>
+             </ul>
+          </div>
+           {% endfor %}
+
+          <hr>
+          <div>
+             <ul class="conf-checkout-keyvals">
+                <li>SubTotal <span class="conf-checkout-val"> {{ cart_obj.subtotal }} KWD</span></li>
+                <li>Shipping <span class="conf-checkout-val"> Free</span></li>
+                <li>Discount <span class="conf-checkout-val"> 0</span></li>
+                 <hr>
+                <li>Total <span class="conf-checkout-val"> {{ cart_obj.total }} KWD</span></li>
+             </ul>
+          </div>
+       </div>
+</div>

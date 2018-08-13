@@ -1,0 +1,100 @@
+<form method="POST" action=" {% url "cart:checkout-Address" %}
+                             "> {% csrf_token %}
+
+
+        {{ form.non_field.errors}}
+        <div class="form-group">
+
+            {{ form.FullName.label_tag }}
+            {{ form.FullName }}
+            {{ form.FullName.errors }}
+
+        </div>
+        <div class="form-group">
+
+            {{ form.ContactNo.label_tag }}
+            {{ form.ContactNo }}
+            {{ form.ContactNo.errors }}
+
+
+        </div>
+        <div class="form-group">
+
+
+            {{ form.Address_line_1.label_tag }}
+            {{ form.Address_line_1 }}
+            {{ form.Address_line_1.errors }}
+
+        </div>
+        <div class="form-group">
+
+            {{ form.Address_line_2.label_tag }}
+            {{ form.Address_line_2 }}
+            {{ form.Address_line_2.errors }}
+
+
+        </div>
+        <div class="form-group">
+
+            {{ form.State.label_tag }}
+            {{ form.State }}
+            {{ form.State.errors }}
+
+
+        </div>
+
+        <div class="form-group">
+
+            {{ form.Postal_Code.label_tag }}
+            {{ form.Postal_Code }}
+            {{ form.Postal_Code.errors }}
+
+
+        </div>
+
+        <div class="form-group">
+
+            {{ form.city.label_tag }}
+            {{ form.city }}
+            {{ form.city.errors }}
+
+
+        </div>
+
+{#           {{ form.as_p }}#}
+
+
+        {% if next_url %}
+            <input type="hidden" name="next" value="{{ next_url }}">
+        {% endif %}
+         {% if address_type %}
+             <input type="hidden" name="address_type" value="{{ address_type }}">
+             {% if address_type == 'shipping' %}
+                <button type="submit" class="btn btn-info" id="confirmation-payment-proceed-btn">Proceed to Billing </button>
+              {% else %}
+                 <button type="submit" class="btn btn-info" id="confirmation-payment-proceed-btn">Proceed to Payment </button>
+             {% endif %}
+
+     {% endif %}
+
+</form>
+
+
+<!--
+<div class="form-group">
+                           <label for="confirmation-name-btn">Full Name *</label>
+                           <input type="text" class="form-control" id="confirmation-name-btn" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                           <label for="confirmation-contact-btn">Contact Number *</label>
+                           <input type="text" class="form-control" id="confirmation-contact-btn" placeholder="Enter your Contact Number">
+                        </div>
+                        <div class="form-group">
+                           <label for="confirmation-add-btn">Address *</label>
+                           <input type="text" class="form-control" id="confirmation-add-btn" placeholder="Enter your Address">
+                        </div>
+                        <div class="form-group">
+                           <label for="confirmation-city-btn">City *</label>
+                           <input type="text" class="form-control" id="confirmation-city-btn" placeholder="Enter your city">
+                        </div>
+-->

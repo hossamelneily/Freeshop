@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+{% block navbar %}{% endblock navbar %}
+{% block content %}
+<div class="row page-title"><img src="{% static 'media/logo.png' %}" alt=""></div>
+<h4 class="FAQ-title">{{ template_name }}</h4>
+<hr class="separator">
+<div class="container">
+ <row>
+    <div class="col-md-3">
+       <div class="FAQ-section"> <i class="fa fa-question-circle" style="font-size:36px"></i> General</div>
+    </div>
+    <div class="col-md-9">
+       <div class="panel-group" id="faqAccordion">
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question0">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: What is Free Shop?</a>
+                </h4>
+             </div>
+             <div id="question0" class="panel-collapse collapse">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                </div>
+             </div>
+          </div>
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question1">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: How to use Free Shop?</a>
+                </h4>
+             </div>
+             <div id="question1" class="panel-collapse collapse">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                </div>
+             </div>
+          </div>
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question2">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: What type of products sold on Free Shop?</a>
+                </h4>
+             </div>
+             <div id="question2" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                </div>
+             </div>
+          </div>
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question3">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: Why to use Free Shop?</a>
+                </h4>
+             </div>
+             <div id="question3" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </row>
+ <row>
+    <div class="col-md-3">
+       <div class="FAQ-section"> <i class="fa fa-dollar" style="font-size:36px"></i> Payments</div>
+    </div>
+    <div class="col-md-9">
+       <div class="panel-group" id="faqAccordion">
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question4">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: How do I pay for a purchase?</a>
+                </h4>
+             </div>
+             <div id="question4" class="panel-collapse collapse">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                   </p>
+                </div>
+             </div>
+          </div>
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question5">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: How to use Debit/Credit Card ?</a>
+                </h4>
+             </div>
+             <div id="question5" class="panel-collapse collapse">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                   </p>
+                </div>
+             </div>
+          </div>
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question6">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: What is Cash on Delivery?</a>
+                </h4>
+             </div>
+             <div id="question6" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                   </p>
+                </div>
+             </div>
+          </div>
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question7">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: How to get my money?</a>
+                </h4>
+             </div>
+             <div id="question7" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                   </p>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </row>
+ <row>
+    <div class="col-md-3">
+       <div class="FAQ-section"> <i class="fa fa-truck" style="font-size:36px"></i> Shipping</div>
+    </div>
+    <div class="col-md-9">
+       <div class="panel-group" id="faqAccordion">
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question8">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: What are the delivery Charges?</a>
+                </h4>
+             </div>
+             <div id="question8" class="panel-collapse collapse">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                   </p>
+                </div>
+             </div>
+          </div>
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question9">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: what is the estimated delivery time?</a>
+                </h4>
+             </div>
+             <div id="question9" class="panel-collapse collapse">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                   </p>
+                </div>
+             </div>
+          </div>
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question10">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: What are the covered areas?</a>
+                </h4>
+             </div>
+             <div id="question10" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                   </p>
+                </div>
+             </div>
+          </div>
+          <div class="panel panel-default ">
+             <div class="panel-heading accordion-toggle collapsed question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question11">
+                <h4 class="panel-title">
+                   <a href="#" class="ing">Q: Is Shipping Internationally available?</a>
+                </h4>
+             </div>
+             <div id="question11" class="panel-collapse collapse" style="height: 0px;">
+                <div class="panel-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam unde dicta ab sapiente harum beatae nihil aspernatur nam eos perferendis. Iusto perspiciatis assumenda vitae aspernatur nam est fuga maiores sequi.
+                   </p>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </row>
+</div>
+{% endblock %}

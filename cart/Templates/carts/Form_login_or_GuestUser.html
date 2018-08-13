@@ -1,0 +1,39 @@
+<form method="POST" action=" {% if guest_form %}
+                              {% url "guest_url" %}
+                              {% else %}
+                              {% url "login" %}
+                              {% endif %}
+
+
+"> {% csrf_token %}
+       {% if guest_form %}
+           <div class="form-group">
+            {{ guest_form.non_field_errors }}
+            {{ guest_form.label_tag }}
+               {{ guest_form.email.errors }}
+             {{ guest_form.email }}
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+           </div>
+           <button type="submit" class="btn btn-info" id="confirmation-guest-btn">Continue as Guest</button>
+{#           {{ guest_form }}#}
+
+       {% else %}
+{#           {{ form }}#}
+           <div class="form-group">
+           {{ login_form.non_field_errors }}
+             {{ login_form.label_tag }}
+               {{ login_form.Email.errors }}
+             {{ login_form.Email }}
+               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+               {{ login_form.Password.errors }}
+             {{ login_form.Password }}
+           <button type="submit" class="btn btn-info" id="confirmation-login-btn">Login</button>
+           </div>
+
+       {% endif %}
+
+        {% if next_url %}
+            <input type="hidden" name="next" value="{{ next_url }}">
+        {% endif %}
+{#        <button type="submit" class="btn btn-success">Submit</button>#}
+</form>

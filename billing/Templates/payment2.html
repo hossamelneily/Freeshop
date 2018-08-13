@@ -1,0 +1,7 @@
+{% extends show_navbar %}
+{% block content %}
+<div class="col-10 col-md-6 mx-auto">
+        {% include 'snippets/payment_form.html' with public_key=public_key next_url=next_url%}
+</div>
+
+{% endblock %}

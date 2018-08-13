@@ -1,0 +1,72 @@
+{#<form  class="form my-2 my-lg-0 search-form" action="{% url "search:query" %}">#}
+{#    <div class="input-group">#}
+{#        <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">#}
+{#        <span class="input-group-btn"><button class="btn btn-outline-success" type="submit">Search</button></span>#}
+{#    </div>#}
+{#</form>#}
+
+
+
+<div class="col-sm-9 col-md-10 vertical-align ">
+         <form method="get" class="search-form" action="{% url 'search:query' %}">
+            <div class="row ">
+               <div class="col-sm-7 col-md-7">
+                  <div class="input-group">
+                     <input type="text" name="q" value="{{ request.GET.q }}" class="form-control input-md" placeholder="Search for ...">
+                     <span class="input-group-btn">
+                     <button id="search_btn" type="sumbit" class="btn btn-info btn-md">
+                     <span class="glyphicon glyphicon-search"></span></button></span>
+                  </div>
+               </div>
+               <div class="col-sm-2 col-md-3">
+                  <select class="form-control input-md" name="category">
+                     <optgroup  label="all" >
+                      <option value="all">All Categories</option>
+                     </optgroup>
+                     <optgroup label="Mens">
+                        <option value="shirts">Shirts</option>
+                        <option value="coats-jackets">Coats & Jackets</option>
+                        <option value="underwear">Underwear</option>
+                        <option value="sunglasses">Sunglasses</option>
+                        <option value="socks">Socks</option>
+                        <option value="belts">Belts</option>
+                     </optgroup>
+                     <optgroup label="Womens">
+                        <option value="bresses">Bresses</option>
+                        <option value="t-shirts">T-shirts</option>
+                        <option value="skirts">Skirts</option>
+                        <option value="jeans">jeans</option>
+                        <option value="pullover">Pullover</option>
+                     </optgroup>
+                      <optgroup label="kids">
+                          <option value="jeans">jeans</option>
+                          <option value="pullover">pullover</option>
+                      </optgroup>
+                     <optgroup label="Sportwear">
+                        <option value="shoes">Shoes</option>
+                        <option value="bags">Bags</option>
+                        <option value="pants">Pants</option>
+                        <option value="swimwear">Swimwear</option>
+                        <option value="bicycles">Bicycles</option>
+                     </optgroup>
+                      <optgroup label="home&style">
+                          <option value="bags">Bags</option>
+                         <option value="shoes">Shoes</option>
+                          <option value="hoseholds">HoseHolds</option>
+                      </optgroup>
+
+                     <optgroup label="Technology">
+                        <option value="tv">TV</option>
+                        <option value="camera">Camera</option>
+                        <option value="speakers">Speakers</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="laptop">Laptop</option>
+                     </optgroup>
+                  </select>
+               </div>
+                <!-- the cart icon in the cart component -->
+               {% include 'carts/cart_icon.html' %}
+            </div>
+         </form>
+</div>
+

@@ -1,0 +1,78 @@
+<form method="post" action="{{ register_url }}" class="Regitser_form"> {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="form-row ">
+                        <div class="form-group col-md-6">
+{#                            <label for="firstName">First Name</label>#}
+                            {{ form.FirstName.label_tag }}
+{#                            <input type="text" class="form-control" id="firstName" placeholder="first Name">#}
+                            {{ form.FirstName }}
+                        </div>
+                        <div class="form-group col-md-6">
+
+{#                            <label for="lastName">Last Name</label>#}
+                            {{ form.LastName.label_tag }}
+{#                            <input type="text" class="form-control" id="lastName" placeholder="last Name">#}
+                            {{ form.LastName }}
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-md-12">
+{#                            <label for="emailAddress">Email</label>#}
+                            {% if form.email.errors %}
+                                {{ form.email.errors }}
+                            {% endif %}
+
+                            {{ form.email.label_tag }}
+{#                            <input type="email" class="form-control" id="emailAddress" placeholder="email address">#}
+                            {{ form.email }}
+{#                            {% render_field form.email class="form-control" %}#}
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-md-12">
+                            {% if form.password2.errors or form.password1.errors %}
+                                {{ form.password2.errors }}
+                                {{ form.password1.errors }}
+                            {% endif %}
+{#                            <label for="password1">Password</label>#}
+{#                            <input type="password" class="form-control" id="password2" placeholder="password">#}
+                            {{ form.password1.label_tag }}{{ form.password1 }}
+
+                        </div>
+                    </div>
+                    <div class="form-now">
+                        <div class="form-group col-md-12">
+{#                             <label for="password2">Confirm Password</label>#}
+                            {{ form.password2.label_tag }} {{ form.password2 }}
+{#                            <input type="password" class="form-control" id="password2" placeholder="password">#}
+                        </div>
+                    </div>
+
+                    <div class="form-row ">
+                        <div class="form-group col-md-12 ">
+                            <label for="Country">Country</label>
+                            <select name="country" id="Country" class="form-control">
+                                <option value="Kuwait" selected>Kuwait</option>
+                                <option value="UAE" >UAE</option>
+                                <option value="Bahrain">Bahrain</option>
+                                <option value="Qatar">Qatar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-md-12">
+                            <div class="form-check form-check-inline">
+
+                                <input class="form-check-input" type="radio" name="gender" id="maleCheckBox" value="M">
+                                <label class="form-check-label " for="maleCheckBox">Male </label>
+                                <input class="form-check-input" type="radio" name="gender" id="femaleCheckBox" value="F">
+                                <label class="form-check-label " for="femaleCheckBox">Female </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-lg-12 text-center">
+                            <button type="submit" class="btn btn-info btn-lg btn-block">Sign Up</button>
+                        </div>
+                    </div>
+</form>

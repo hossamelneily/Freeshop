@@ -1,0 +1,58 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "Name": "Short",
+        "slug": "abc",
+        "description": "short",
+        "price": "23",
+        "image": "product/28121370/28121370.jpeg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-02-19T13:47:17.687Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "Name": "T-shirt",
+        "slug": "shirt",
+        "description": "love it",
+        "price": "39.99",
+        "image": "product/31867341/31867341.jpeg",
+        "featured": true,
+        "active": true,
+        "timestamp": "2018-02-19T13:47:17.687Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "Name": "Hat",
+        "slug": "hat-hqwb",
+        "description": "this my hat",
+        "price": "39.99",
+        "image": "product/16897150/16897150.jpeg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-02-19T13:47:17.687Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "Name": "bottle",
+        "slug": "bottle",
+        "description": "my bottle",
+        "price": "39.99",
+        "image": "",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-02-28T12:54:38.863Z"
+    }
+}
+]

@@ -1,0 +1,585 @@
+{% load static %}
+{% url 'home'  as home_url %}
+{% url 'contact' as contact_url%}
+{% url 'products:list' as list_url%}
+{% url 'products:category' as products_category %}
+{% url 'login' as login_url%}
+{% url 'register' as register_url%}
+{% url 'logout' as logout_url%}
+{% url 'Accounts:home' as account_home%}
+{% url 'cart:show' as cart_url%}
+
+
+
+{#<nav class="navbar navbar-expand-lg navbar-dark bg-dark">#}
+{#    <div class="container">#}
+{#     <a class="navbar-brand" href="#">#}
+{#        <img src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="25" alt="">#}
+{#            {% if brand_name  %}#}
+{#            {{ brand_name }}#}
+{#            {% else %}#}
+{#            ecommerce#}
+{#            {% endif %}#}
+{#     </a>#}
+{#    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+{#        <span class="navbar-toggler-icon"></span>#}
+{#    </button>#}
+{#        <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
+{#            <ul class="navbar-nav mr-auto">#}
+{#                <li class="nav-item {% if request.path == home_url %}active {% endif %}" >#}
+{#                    <a class="nav-link"  href="{{ home_url}}">Home<span class="sr-only">(current)</span></a>#}
+{#                </li>#}
+{#                <li class="nav-item {% if request.path == contact_url %}active{% endif %}">#}
+{#                    <a class="nav-link" href="{{ contact_url }}">Contact</a>#}
+{#                </li>#}
+{##}
+{#                <li class="nav-item {% if request.path == list_url %}active{% endif %}">#}
+{#                <a class="nav-link " href="{{ list_url }}">Products</a>#}
+{#                </li>#}
+{#                {% if request.user.is_authenticated %}#}
+{#                    <li class="nav-item {% if request.path == logout_url %}active{% endif %}">#}
+{#                    <a class="nav-link " href="{{ logout_url }}">Logout</a>#}
+{#                    </li>#}
+{##}
+{#                <li class="nav-item {% if request.path == register_url %}active{% endif %}">#}
+{#                    <a class="nav-link " href="{{ register_url }}">Register</a>#}
+{#                </li>#}
+{#                {% else %}#}
+{#                    <li class="nav-item {% if request.path == login_url %}active{% endif %}">#}
+{#                    <a class="nav-link " href="{{ login_url }}">Login</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#                <li class="nav-item dropdown">#}
+{#                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                      Account#}
+{#                    </a>#}
+{#                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+{#                      <a class="dropdown-item {% if request.path == account_home %}active{% endif %}"  href="{{ account_home }}">Home</a>#}
+{#                      <a class="dropdown-item {% if request.path == account_home %}active{% endif %}" href="#">Billing</a>#}
+{#                      <a class="dropdown-item {% if request.path == account_home %}active{% endif %}" href="#">Preferences</a>#}
+{#                      <a class="dropdown-item {% if request.path == account_home %}active{% endif %}" href="#">History</a>#}
+{#                     {% if request.user.is_authenticated %}#}
+{#                      <div class="dropdown-divider"></div>#}
+{#                      <a class="dropdown-item {% if request.path == logout_url %}active{% endif %}" href="{{ logout_url }}">Logout</a>#}
+{#                      {% endif %}#}
+{#                    </div>#}
+{#                </li>#}
+{#                <li class="nav-item {% if request.path == cart_url %}active{% endif %}">#}
+{#                    <a class="nav-link " href="{{ cart_url }}"><span class="cart_item_counts"> {{ request.session.cart_items }}</span> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>#}
+{#                </li>#}
+{##}
+{##}
+{#            </ul>#}
+{#        {% include "snippets/searchbar.html" %}#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
+
+
+
+<!-- Amr Nav bar ,  Now we will make 3 bars common on all the pages -->
+
+<!-- ******************** TOP_BAR  ******************************  -->
+ <nav class="topBar">
+    <div class="container">
+       <ul class="list-inline pull-left hidden-sm hidden-xs">
+          <li><a href="mobileapp.html" ><i class="fa fa-download"></i>  Download Mobile App </a></li>
+       </ul>
+       <ul class="topBarNav pull-right">
+           {% if request.user.is_authenticated %}
+                    <li class="">
+                        <a  href='{{ logout_url }}'  aria-expanded="false"  ><i class="fa fa-user" aria-hidden="true"></i> logout <span> {{ request.user }}</span></a>
+
+                    </li>
+
+                {% else %}
+                  <li class="">
+                     <a   href='{{ login_url }}'  aria-expanded="false" data-toggle="modal" data-target="#loginModal" ><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+
+                  </li>
+           {% endif %}
+
+          <li class="">
+             <a href="help.html"><i class="fa fa-question-circle" aria-hidden="true"></i> Help</a>
+          </li>
+          <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="false">
+             <img src="{% static 'media/kuwait.png' %}" class="mr-5" alt="">
+             <span class="hidden-xs"><i class="fa fa-angle-down ml-5"></i></span>
+             </a>
+             <ul class="dropdown-menu w-100" role="menu">
+                <li>
+                   <a href="#"><img src="{% static 'media/Kuwait.png' %}" class="mr-5 img-responsive" alt="">Kw</a>
+                </li>
+                <li class="">
+                    <a href="#"><img src="{% static 'media/Bahrain.png' %}" class="mr-5 img-responsive" alt=""><span>Bh</span></a>
+                </li>
+                <li>
+                   <a href="#"><img src="{% static 'media/Saudi Arabia.png' %}" class="mr-5 img-responsive" alt="">Saudi</a>
+                </li>
+                <li>
+                   <a href="#"><img src="{% static 'media/UAE.png' %}" class="mr-5 img-responsive" alt="">UAE</a>
+                </li>
+             </ul>
+          </li>
+          <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="false">
+             <span class="">العربيه</span>
+             </a>
+             <ul class="dropdown-menu w-100" role="menu">
+                <li>
+                   <a href="#">English</a>
+                </li>
+             </ul>
+          </li>
+       </ul>
+    </div>
+ </nav>
+ <!-- ***********************************************************  -->
+ <!-- *********************** MIDDEL_BAR  ***********************  -->
+ <div class="middleBar">
+    <div class="container">
+       <div class="row display-table">
+          <div class="col-sm-3 col-md-2 vertical-align text-left hidden-xs">
+             <a href="{{ home_url }}"> <img width="" src="{% static 'media/logo.png' %}" alt=""></a>
+          </div>
+           <!-- the snippent of the search bar in the search component -->
+          {% include 'search/snippets/searchbar.html' %}
+
+       </div>
+    </div>
+ </div>
+ <!-- **************************************************************  -->
+ <!-- *********************** LAST_BAR  ****************************  -->
+<div class="lastBar">
+ <nav class="navbar">
+
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#last-navbar">
+           <span class=" fa fa-bars">  </span>
+         </button>
+         <!-- <a href="" class="visible-xs">Collection Category</a> -->
+      </div>
+       <div class="collapse navbar-collapse" id="last-navbar">
+          <ul class="nav navbar-nav">
+             <li class="dropdown mega-dropdown">
+                <a href="{% url 'products:category' category='menclothes' %}" class="dropdown-toggle disabled" data-toggle="dropdown" aria-expanded="true">Men</a>
+                <ul class="dropdown-menu mega-dropdown-menu">
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Shoes</li>
+                         <li><a href="#">Sneakrs</a></li>
+                         <li><a href="#">Boots</a></li>
+                         <li><a href="#">Sports Shoes</a></li>
+                         <li><a href="#">Sandals</a></li>
+                         <li class="divider"></li>
+                         <li class="dropdown-header">Bags</li>
+                         <li><a href="#">Sports Bags</a></li>
+                         <li><a href="#">Small Bags</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Accessories</li>
+                         <li><a href="#">Watches</a></li>
+                         <li><a href="#">Sunglasses</a></li>
+                         <li><a href="#">Jewellery</a></li>
+                         <li><a href="#">Perfumes</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Clothes</li>
+                         <li><a href="#">Jeans</a></li>
+                         <li><a href="#">shirts</a></li>
+                         <li><a href="#">T-shirts</a></li>
+                         <li><a href="#">underwears</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-6">
+                      <div class="category-images">
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/men-shoes.png' %}" alt="Nature" style="width:100%">
+                               <div class="caption">
+                                  <p>New Shoes collection </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/men-bags.png' %}" alt="Nature" style="width:100%">
+                               <div class="caption">
+                                  <p>New Bags collection </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/men-cloth.jpg' %}" alt="Nature" style="width:100%">
+                               <div class="caption">
+                                  <p>New Clothes collection </p>
+                               </div>
+                            </a>
+                         </div>
+                      </div>
+                   </li>
+                </ul>
+             </li><li role="separator" class="divider"></li>
+             <li class="dropdown mega-dropdown">
+                <a  class="dropdown-toggle disabled" href="{% url 'products:category' category='womenclothes' %}" data-toggle="dropdown"><span>Women</span></a>
+                <ul class="dropdown-menu mega-dropdown-menu">
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Features</li>
+                         <li><a href="#">Auto Carousel</a></li>
+                         <li><a href="#">Carousel Control</a></li>
+                         <li><a href="#">Left & Right Navigation</a></li>
+                         <li><a href="#">Four Columns Grid</a></li>
+                         <li class="divider"></li>
+                         <li class="dropdown-header">Fonts</li>
+                         <li><a href="#">Glyphicon</a></li>
+                         <li><a href="#">Google Fonts</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Plus</li>
+                         <li><a href="#">Navbar Inverse</a></li>
+                         <li><a href="#">Pull Right Elements</a></li>
+                         <li><a href="#">Coloured Headers</a></li>
+                         <li><a href="#">Primary Buttons & Default</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Much more</li>
+                         <li><a href="#">Easy to Customize</a></li>
+                         <li><a href="#">Calls to action</a></li>
+                         <li><a href="#">Custom Fonts</a></li>
+                         <li><a href="#">Slide down on Hover</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-6">
+                      <div class="category-images">
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/women-shoes.png' %}" alt="Women Shoes" style="width:100%">
+                               <div class="caption">
+                                  <p>New Shoes collection </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/women-cloth.jpg' %}" alt="Women Clothes" style="width:100%">
+                               <div class="caption">
+                                  <p>New Cloth collection </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/women-acc.jpg' %}" alt="Women-Accessories" style="width:100%">
+                               <div class="caption">
+                                  <p>New Accessories collection </p>
+                               </div>
+                            </a>
+                         </div>
+                      </div>
+                   </li>
+                </ul>
+             </li><li role="separator" class="divider"></li>
+             <li class="dropdown mega-dropdown">
+                <a href="{% url 'products:category' category='Kidsclothes' %}" class="dropdown-toggle disabled" data-toggle="dropdown"><span>Kids</span></a>
+                <ul class="dropdown-menu mega-dropdown-menu">
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Features</li>
+                         <li><a href="#">Auto Carousel</a></li>
+                         <li><a href="#">Carousel Control</a></li>
+                         <li><a href="#">Left & Right Navigation</a></li>
+                         <li><a href="#">Four Columns Grid</a></li>
+                         <li class="divider"></li>
+                         <li class="dropdown-header">Fonts</li>
+                         <li><a href="#">Glyphicon</a></li>
+                         <li><a href="#">Google Fonts</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Plus</li>
+                         <li><a href="#">Navbar Inverse</a></li>
+                         <li><a href="#">Pull Right Elements</a></li>
+                         <li><a href="#">Coloured Headers</a></li>
+                         <li><a href="#">Primary Buttons & Default</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Much more</li>
+                         <li><a href="#">Easy to Customize</a></li>
+                         <li><a href="#">Calls to action</a></li>
+                         <li><a href="#">Custom Fonts</a></li>
+                         <li><a href="#">Slide down on Hover</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-6">
+                      <div class="category-images">
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/kids-boys.png' %}" alt="Women Shoes" style="width:100%">
+                               <div class="caption">
+                                  <p>Boys collection </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/kids-girls.jpg' %}" alt="Women Clothes" style="width:100%">
+                               <div class="caption">
+                                  <p>Girls collection </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/kids-acc.jpg' %}" alt="Women-Accessories" style="width:100%">
+                               <div class="caption">
+                                  <p>Accessories collection </p>
+                               </div>
+                            </a>
+                         </div>
+                      </div>
+                   </li>
+                </ul>
+             </li><li role="separator" class="divider"></li>
+             <li class="dropdown mega-dropdown">
+                <a href="{% url 'products:category' category='electronics' %}" class="dropdown-toggle disabled" data-toggle="dropdown"><span>Electronics</span></a>
+                <ul class="dropdown-menu mega-dropdown-menu">
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Features</li>
+                         <li><a href="#">Auto Carousel</a></li>
+                         <li><a href="#">Carousel Control</a></li>
+                         <li><a href="#">Left & Right Navigation</a></li>
+                         <li><a href="#">Four Columns Grid</a></li>
+                         <li class="divider"></li>
+                         <li class="dropdown-header">Fonts</li>
+                         <li><a href="#">Glyphicon</a></li>
+                         <li><a href="#">Google Fonts</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Plus</li>
+                         <li><a href="#">Navbar Inverse</a></li>
+                         <li><a href="#">Pull Right Elements</a></li>
+                         <li><a href="#">Coloured Headers</a></li>
+                         <li><a href="#">Primary Buttons & Default</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Much more</li>
+                         <li><a href="#">Easy to Customize</a></li>
+                         <li><a href="#">Calls to action</a></li>
+                         <li><a href="#">Custom Fonts</a></li>
+                         <li><a href="#">Slide down on Hover</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-6">
+                      <div class="category-images">
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/electro-1.jpg' %}" alt="Nature" style="width:100%">
+                               <div class="caption">
+                                  <p>New Home Appliances </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/electro-2.jpg' %}" alt="Nature" style="width:100%">
+                               <div class="caption">
+                                  <p>Personal Electronic Devices </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/electro-3.png' %}" alt="Nature" style="width:100%">
+                               <div class="caption">
+                                  <p>Game Devices & Accessories </p>
+                               </div>
+                            </a>
+                         </div>
+                      </div>
+                   </li>
+                </ul>
+             </li><li role="separator" class="divider"></li>
+             <li class="dropdown mega-dropdown">
+                <a href="{% url 'products:category' category='HomeStyle' %}" class="dropdown-toggle disabled" data-toggle="dropdown"><span>Home & LifeStyle</span></a>
+                <ul class="dropdown-menu mega-dropdown-menu">
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Features</li>
+                         <li><a href="#">Auto Carousel</a></li>
+                         <li><a href="#">Carousel Control</a></li>
+                         <li><a href="#">Left & Right Navigation</a></li>
+                         <li><a href="#">Four Columns Grid</a></li>
+                         <li class="divider"></li>
+                         <li class="dropdown-header">Fonts</li>
+                         <li><a href="#">Glyphicon</a></li>
+                         <li><a href="#">Google Fonts</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Plus</li>
+                         <li><a href="#">Navbar Inverse</a></li>
+                         <li><a href="#">Pull Right Elements</a></li>
+                         <li><a href="#">Coloured Headers</a></li>
+                         <li><a href="#">Primary Buttons & Default</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Much more</li>
+                         <li><a href="#">Easy to Customize</a></li>
+                         <li><a href="#">Calls to action</a></li>
+                         <li><a href="#">Custom Fonts</a></li>
+                         <li><a href="#">Slide down on Hover</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-6">
+                      <div class="category-images">
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/women-shoes.png' %}" alt="Women Shoes" style="width:100%">
+                               <div class="caption">
+                                  <p>New Shoes collection </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/women-cloth.jpg' %}" alt="Women Clothes" style="width:100%">
+                               <div class="caption">
+                                  <p>New Cloth collection </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/women-acc.jpg' %}" alt="Women-Accessories" style="width:100%">
+                               <div class="caption">
+                                  <p>New Accessories collection </p>
+                               </div>
+                            </a>
+                         </div>
+                      </div>
+                   </li>
+                </ul>
+             </li><li role="separator" class="divider"></li>
+             <li class="dropdown mega-dropdown">
+                <a href="{% url 'products:category' category='sports' %}" class="dropdown-toggle disabled" data-toggle="dropdown"><span>Sports</span></a>
+                <ul class="dropdown-menu mega-dropdown-menu">
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Features</li>
+                         <li><a href="#">Auto Carousel</a></li>
+                         <li><a href="#">Carousel Control</a></li>
+                         <li><a href="#">Left & Right Navigation</a></li>
+                         <li><a href="#">Four Columns Grid</a></li>
+                         <li class="divider"></li>
+                         <li class="dropdown-header">Fonts</li>
+                         <li><a href="#">Glyphicon</a></li>
+                         <li><a href="#">Google Fonts</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Plus</li>
+                         <li><a href="#">Navbar Inverse</a></li>
+                         <li><a href="#">Pull Right Elements</a></li>
+                         <li><a href="#">Coloured Headers</a></li>
+                         <li><a href="#">Primary Buttons & Default</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-2">
+                      <ul>
+                         <li class="dropdown-header">Much more</li>
+                         <li><a href="#">Easy to Customize</a></li>
+                         <li><a href="#">Calls to action</a></li>
+                         <li><a href="#">Custom Fonts</a></li>
+                         <li><a href="#">Slide down on Hover</a></li>
+                      </ul>
+                   </li>
+                   <li class="col-sm-6">
+                      <div class="category-images">
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/sports-3.jpg' %}" alt="Men sportsWear" style="width:100%">
+                               <div class="caption">
+                                  <p>Men SportsWear </p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/sports-2.jpg' %}" alt="Women SportsWear" style="width:100%">
+                               <div class="caption">
+                                  <p>Women SportsWear</p>
+                               </div>
+                            </a>
+                         </div>
+                         <div class="thumbnail">
+                            <a href="#" target="_blank">
+                               <img src="{% static 'media/sports-1.jpg' %}" alt="sports-Accessories" style="width:100%">
+                               <div class="caption">
+                                  <p>Sports Accessories </p>
+                               </div>
+                            </a>
+                         </div>
+                      </div>
+                   </li>
+                </ul>
+             </li>
+          </ul>
+       </div>
+
+    </nav>
+</div>
+
+ <!-- ************************login Modal**************************************  -->
+{#    <div class="row div_Modal">#}
+{##}
+{#        <div id="loginModal" class="modal fade loginModal-content col-sm-8 col-sm-offset-2 col-md-5 col-md-offset-3">#}
+{#            <div class="loginModal-content">#}
+{#                <div class="loginModal-header">#}
+{#                    <button type="button" class="close" data-dismiss="modal">×</button>#}
+{#                    <h4 class="modal-title">Login</h4> </div><div class="loginModal-body">#}
+{#                <div class="row">#}
+{#                    <div class="col-md-12"> via <div class="social-buttons">#}
+{#                        <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>#}
+{#                        <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>#}
+{#                    </div>or#}
+{##}
+{##}
+{#                        {% include 'login.html' %}#}
+{##}
+{##}
+{##}
+{#                    </div>#}
+{#                    <div class="bottom text-center"> New here ?#}
+{#                        <a href="signUp.html"><b>Join Us</b></a> </div></div></div>#}
+{#                <div class="loginModal-footer">#}
+{#            </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+    {% include 'login.html' with form=login_form%}
+
+{#id="click_Modal"#}

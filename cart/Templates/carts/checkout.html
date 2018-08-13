@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% url 'home' as home_url %}
+{#{% block content %}#}
+{#    {{ object.order_id }}   --  {{  object.cart }}#}
+{#    {% if not billing_profile %}#}
+{#     <div class="row text-center">#}
+{##}
+{#     <div class="col-12 col-md-6">#}
+{##}
+{#         <p class="lead"> Login</p>#}
+{#         {% include "form.html" with form=loginpage next_url=request.build_absolute_uri %}#}
+{#     </div>#}
+{#     <div class="col-12 col-md-6">#}
+{#         <p class="lead"> Continue as Guest</p>#}
+{#         {% include "form.html" with form=loginpage next_url=request.build_absolute_uri guest_form=guestform%}#}
+{##}
+{#     </div>#}
+{##}
+{#     </div>#}
+{##}
+{##}
+{#    {% else %}#}
+{#        {% if not object.shipping_Address %}#}
+{#            <div class="row">#}
+{#                <div class="col-md-6 mx-auto col-10">#}
+{#                    <p class="lead">Shipping Address</p>#}
+{#                    <hr>#}
+{#                    {% include "snippets/form.html" with form=addressform next_url=request.build_absolute_uri address_type="shipping"%}#}
+{#                </div>#}
+{##}
+{#                {% if request.user.is_authenticated %}#}
+{#                <div class="col-6">#}
+{#                    <p class="lead">Shipping Address</p>#}
+{#                    <hr>#}
+{##}
+{#                    {% include "snippets/prev_Add.html" with  next_url=request.build_absolute_uri address_type="shipping" address_qs=Address_qs%}#}
+{#                </div>#}
+{#                {% endif %}#}
+{##}
+{#            </div>#}
+{#            {% elif not object.Billing_Address %}#}
+{##}
+{#            <div class="row">#}
+{#                <div class="col-md-6 mx-auto col-10">#}
+{#                    <p class="lead">Billing Address</p>#}
+{#                    <hr>#}
+{#                    {% include "snippets/form.html" with form=addressform next_url=request.build_absolute_uri address_type="billing"%}#}
+{#                </div>#}
+{##}
+{##}
+{#                {% if request.user.is_authenticated %}#}
+{#                <div class="col-6">#}
+{#                    <p class="lead">Billing Address</p>#}
+{#                    <hr>#}
+{##}
+{#                    {% include "snippets/prev_Add.html" with  next_url=request.build_absolute_uri address_type="billing" address_qs=Address_qs%}#}
+{#                </div>#}
+{#                {% endif %}#}
+{##}
+{##}
+{#            </div>#}
+{#            {% else %}#}
+{#                {% if not has_card %}#}
+{##}
+{#                    {% include "payment-method.html" with public_key=public_key next_url=request.build_absolute_uri %}#}
+{##}
+{##}
+{#                {%else %}#}
+{#                    <h1> Checkout home</h1>#}
+{#                    <p>{% for product in object.cart.products.all %}{{ product }} {% if not forloop.last %},{% endif %}{% endfor %}</p>#}
+{#                    <p>shipping Address: {{ object.shipping_Address.get_address }}</p>#}
+{#                    <p>Billing Address: {{ object.Billing_Address.get_address }}</p>#}
+{#                    <p>Payment Method:{{ billing_profile.default_cards }}<a href="{{ billing_profile.get_payment_method_url }}?next={{ request.build_absolute_uri }}">(Change)</a></p>#}
+{#                    <p>order_id:{{ object.total }}</p>#}
+{#                    <form class="form" method="POST" action=""> {% csrf_token %}#}
+{#                        <button type="submit" class="btn btn-success">Finalize Checkout</button>#}
+{#                    </form>#}
+{#            {% endif %}#}
+{#            {% endif %}#}
+{#    {% endif %}#}
+{#{% endblock %}#}
+
+
+{% block content %}
+      <div class="container">
+          <div class="row confirmation-title"><a href="{{ home_url }}" ><img src="images/logo.png" alt=""></a></div>
+         <div class="row confirmation-body">
+            <div class="col-sm-6  col-md-6 col-md-offset-1">
+                {% if not billing_profile %}
+               <button class="accordion">1- Sign in</button>
+               <div class="panel">
+                  <div class="row">
+                     <div class="col-md-6">
+                         <h4>New Member</h4>
+                         <h6>Checkout using just your email address:</h6>
+                        {% include "carts/Form_login_or_GuestUser.html" with  next_url=request.build_absolute_uri guest_form=guestform%}
+                     </div>
+                     <span class="border"></span>
+                     <div class="col-md-6">
+                         <h4>Login to your account</h4>
+                         <h6>If you have an existing account,login below:</h6>
+                        {% include "carts/Form_login_or_GuestUser.html" with login_form=loginpage next_url=request.build_absolute_uri %}
+                     </div>
+                  </div>
+               </div>
+                    {% else  %}
+
+                    {% if not object.shipping_Address %}
+                           <button class="accordion">2- SHIP TO</button>
+                           <div class="panel">
+                              <div class="row shippment">
+                                 <h4>New Shipping Address</h4>
+                                 <div class="col-md-6 offset-md-6">
+                                    {% include "Shipping&Billing Adresses/snippets/form.html" with form=addressform next_url=request.build_absolute_uri address_type="shipping"%}
+                                 </div>
+                              </div>
+{#                              <button type="submit" class="btn btn-info" id="confirmation-payment-proceed-btn">Proceed to Payment </button>#}
+                           </div>
+                        {% if request.user.is_authenticated %}
+                            <div class="col-2">
+                                <p class="lead">Shipping Address</p>
+                                <hr>
+                                {% include "Shipping&Billing Adresses/snippets/prev_Add.html" with  form=prev_form_shipping next_url=request.build_absolute_uri address_type="shipping" address_qs=Shipping_Address_qs%}
+                            </div>
+                        {% endif %}
+                    {% elif not object.Billing_Address %}
+                            <button class="accordion">3- Billing Address</button>
+                            <div class="panel">
+                              <div class="row shippment">
+                                 <h4>New Billing Address</h4>
+                                 <div class="col-md-6 offset-md-6">
+                                    {% include "Shipping&Billing Adresses/snippets/form.html" with form=addressform next_url=request.build_absolute_uri address_type="billing"%}
+                                 </div>
+                             </div>
+{#                              <button type="submit" class="btn btn-info" id="confirmation-payment-proceed-btn">Proceed to Payment </button>#}
+                            </div>
+
+                            {% if request.user.is_authenticated %}
+                                <div class="col-6">
+                                    <p class="lead">Billing Address</p>
+                                    <hr>
+                                    {% include "Shipping&Billing Adresses/snippets/prev_Add.html" with  form=prev_form_billing next_url=request.build_absolute_uri address_type="billing" address_qs=Billing_Address_qs%}
+                                </div>
+                            {% endif %}
+                    {% else %}
+
+                        {% if not has_card %}
+                            {% include 'snippets/payment_form.html' with stripe_public_key=public_key next_url=request.build_absolute_uri %}
+{#                        {% elif change %}#}
+{##}
+{#                             {% include 'snippets/payment_form.html' with stripe_public_key=public_key next_url=request.build_absolute_uri %}#}
+                        {% else %}
+                            {% include 'carts/Finalize_Checkout.html' with object=object billing_profile=billing_profile %}
+                        {% endif %}
+                    {% endif %}
+            {% endif %}
+            </div>
+         </div>
+      </div>
+{% endblock %}
+
+
+
+
+
+
+<button class="accordion">3- PAYMENT</button>
+                    <div class="panel">
+                  <div class="radio">
+                     <label><input type="radio" name="optradio" onclick="hide();" >Cash On Delivery <span>The additional fee for this service is 2 KWD.</span></label>
+                  </div>
+                  <div class="radio">
+                     <label><input type="radio" name="optradio" onclick="hide();">PayPal</label>
+                  </div>
+                  <div class="radio ">
+                     <label><input type="radio" name="optradio" onclick="show();" checked>Credit/Debit Card Payment <span>(We accept Visa and MasterCard)</span></label>
+                  </div>
+                  <div class="col-md-8 col-md-offset-2">
+                     <div  id="card">
+                        <form role="form" >
+                           <div class="form-group">
+                              <label for="username">Full name (on the card)</label>
+                              <div class="input-group">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                 </div>
+                                 <input type="text" class="form-control" name="username" placeholder="" required="">
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label for="cardNumber">Card number</label>
+                              <div class="input-group">
+                                 <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                                 </div>
+                                 <input type="text" class="form-control" name="cardNumber" placeholder="">
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-8">
+                                 <div class="form-group">
+                                    <label><span class="hidden-xs">Expiration</span> </label>
+                                    <div class="form-inline">
+                                       <select class="form-control" style="width:45%">
+                                          <option>MM</option>
+                                          <option>01 - Janiary</option>
+                                          <option>02 - February</option>
+                                          <option>03 - March</option>
+                                          <option>04 - April</option>
+                                          <option>05 - May</option>
+                                          <option>06 - June</option>
+                                          <option>07 - July</option>
+                                          <option>08 - August</option>
+                                          <option>09 - September</option>
+                                       </select>
+                                       <span style="width:10%; text-align: center"> / </span>
+                                       <select class="form-control" style="width:45%">
+                                          <option>YY</option>
+                                          <option>2018</option>
+                                          <option>2019</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-sm-4">
+                                 <div class="form-group">
+                                    <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label>
+                                    <input class="form-control" required="" type="text">
+                                 </div>
+                              </div>
+                           </div>
+                           <button class="subscribe btn btn-info btn-block" type="button"> Confirm  </button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+
+
+ {% include 'carts/OrdersReview.html' with cart_obj=cart_obj%}
+<div>
+              <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                  <button type="button" class="btn btn-info" id="final-pay-btn">Confirm Buying</button>
+                </div>
+              </div>
+            </div>

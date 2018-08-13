@@ -1,0 +1,11 @@
+{% url 'cart:show' as cart_url%}
+<div class="col-sm-3 col-md-2 hidden-xs" >
+
+      <a href="#swym-wishlist" class="wishlist">
+        <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-heart-o"></i>
+      </a>
+      <a href="{{ cart_url }}" class="shopping-bag" data-toggle="modal">
+{#        <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-shopping-bag"></i>#}
+          <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-shopping-bag"></i><span id="cart_item_counts"></span>
+      </a>
+</div>

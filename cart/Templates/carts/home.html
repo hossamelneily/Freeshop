@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+
+{#{% block content %}#}
+    <h1> cart home</h1>
+    {% if cart_obj.products.exists %}
+
+        <table class="table cart_table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody class="cart_body">
+            {% for product in cart_obj.products.all %}
+            <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td class="cart_products_rows" ><a href="{% url "product:detail" slug=product.slug %}">{{  product.Name }}</a> <small>
+
+
+{#            {% include "product/update_cart.html" with product=product cart=cart_obj in_cart=True %}#}
+            {% include "carts/new_update_cart.html" with product=product%}   <!-- duplicated here in line 45 this is the old version -->
+            </small> </td>
+            <td class="cart_product_rows_price">{{ product.price }}</td>
+            </tr>
+             {% endfor %}
+            <tr >
+
+
+                <td colspan="2"></td>
+                <td><b>Subtotal=<span class="cart_subtotal">{{ cart_obj.subtotal }}</span></b></td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td><b>Total=<span class="cart_total">{{ cart_obj.total }}</span></b></td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td><a href="{% url "cart:checkout" %}" class="btn btn-lg btn-success"> checkout</a> </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="cart_item-remove-form" style="display: none">
+            {% include "carts/new_update_cart.html" %}
+        </div>
+    {% else %}
+        <p class="lead">Cart is Empty </p>
+    {% endif %}
+{#{% endblock %}#}
+
+
+
+{% block content %}
+
+      <div class="container payment">
+         <div class="row payment-title">
+            <div class="col-md-10 col-md-offset-1 payment-col">
+               <h3>SHOPPING BAG</h3>
+                {% if cart_obj.products.exists %}
+               <h4><span class="payment-items-no">{{ cart_obj.products.count }}</span> Items</h4>
+            </div>
+         </div>
+         <hr class=" col-md-10 col-md-offset-1">
+         <div class="row ">
+            <div class="col-md-10 col-md-offset-1 payment-col">
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                    {% for product in cart_obj.products.all %}
+                     <tr>
+                         <th class="cart_products_rows"><a href="{% url "product:detail" slug=product.slug %}"><img src="{% if product.image %} {{ product.image.url }} {% endif %}" class="item-img-payment" alt=""></a></th>
+                        <th><span class="item-brand-payment">{% for tag in product.tags_set.all %} {% if  tag.Brand %}{{ tag.Brand }}{% else %} Not Specified{% endif %} {% endfor %}</span></th>
+                        <th><span class="item-desc-payment">{{ product.description }}</span></th>
+                        <th><span class="item-size-payment">M</span></th>
+                        <th>
+                           <div class="">
+                              <input type="number" class="form-control input-sm item-quantity-payment"placeholder="1" >
+                           </div>
+                        </th>
+                        <th><span class="item-price-payment">{{ product.price }} KWD</span></th>
+                     </tr>
+                    {% endfor %}
+
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <hr class=" col-md-10 col-md-offset-1">
+         <div class="row ">
+            <div class="col-md-10 col-md-offset-1 payment-summary-col">
+               <div class="row">
+                  <div class="col-sm-3 col-md-3 services hidden-xs">
+                     <h5>Our Services</h5>
+                     <ul class="payment-service-list">
+                        <li><i class="fa fa-truck"></i><span>  Fast Delivery</span></li>
+                        <li><i class="fa fa-exchange"></i><span>  Free Exchange</span></li>
+                     </ul>
+                  </div>
+                  <div class="col-sm-5 col-md-5 payment-methods hidden-xs">
+                     <h5>Payment Methods</h5>
+                     <p class="payment-methods-list">
+                        <i class="fa fa-cc-visa"></i>
+                        <i class="fa fa-cc-mastercard"></i>
+                        <i class="fa fa-credit-card"></i>
+                        <i class="fa fa-cc-paypal"></i>
+                        <i class="fa fa-money"></i>
+                     </p>
+                  </div>
+
+                  <div class="col-sm-4 col-md-4 payment-checkout">
+                     <table class="table checkout-table">
+                        <tr>
+                           <th class="checkout-key">SUBTOTAL</th>
+                           <th class="checkout-val">{{ cart_obj.subtotal }} KWD</th>
+                        </tr>
+                        <tr>
+                           <th class="checkout-key">SHIPPING</th>
+                           <th class="checkout-val">Free</th>
+                        </tr>
+                        <tr>
+                           <th class="checkout-key">Discount</th>
+                           <th class="checkout-val">0</th>
+                        </tr>
+                        <tr >
+                           <th class="checkout-key-total">TOTAL</th>
+                           <th class="checkout-val-total "id="checkout-val-total-KD">{{ cart_obj.total }} KWD</th>
+                        </tr>
+{#                        <tr>#}
+{#                           <th class="checkout-key"></th>#}
+{#                           <th class="checkout-val-total" id="checkout-val-total-USD">87 USD</th>#}
+{#                        </tr>#}
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <hr class=" col-md-10 col-md-offset-1">
+         <div class="row ">
+            <div class=" col-md-10 col-md-offset-1 payment-col">
+
+               <!-- <button type="button" class="btn btn-success col-md-3" id="payment-back-btn">Continue Shopping</button> -->
+               <!-- <button type="button" class="btn btn-info col-md-3" id="payment-checkout-btn">Proceed To Checkout</button> -->
+               <div class="col-md-4 " id="payment-back-btn">
+                  <a href="products.html" class="btn  btn-success form-control"> Continue Shopping </a>
+               </div>
+               <div class="col-md-4 .offset-md-4" id="payment-checkout-btn">
+                  <a href="{% url 'cart:checkout' %}" class="btn  btn-info form-control"> Proceed To Checkout </a>
+               </div>
+            </div>
+         </div>
+      {% else %}
+            <p class="lead">Cart is Empty </p>
+                {% endif %}
+      </div>
+{% endblock %}
+
+    <!-- Modal Cart -->
+ <div class="modal fade modal-cart" id="cartModal--" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+   <div class="modal-sm modal-side modal-bottom-right" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+         <h5 class="modal-title" id="cartModalLabel">You have 4 items in your bag</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+        <div class="modal-body">
+         <div class="media">
+           <a href="detail.html" class="mr-2"><img class="img-fluid rounded" src="img/product/polo1-small.jpg" width="70" alt="Generic placeholder image"></a>
+           <div class="media-body">
+             <div><a href="detail.html" class="text-dark">Burberry The Plymouth Duffle Coat</a></div>
+             <span class="text-secondary"><span class="mr-3">x1</span>$50.00</span>
+             <button class="close text-danger"><i class="material-icons">close</i></button>
+           </div>
+         </div>
+         <div class="media">
+           <a href="detail.html" class="mr-2"><img class="img-fluid rounded" src="img/product/polo2-small.jpg" width="70" alt="Generic placeholder image"></a>
+           <div class="media-body">
+             <div><a href="detail.html" class="text-dark">Fendi Bugs Sweater</a></div>
+             <span class="text-secondary"><span class="mr-3">x1</span>$50.00</span>
+             <button class="close text-danger"><i class="material-icons">close</i></button>
+           </div>
+         </div>
+         <div class="media">
+           <a href="detail.html" class="mr-2"><img class="img-fluid rounded" src="img/product/polo3-small.jpg" width="70" alt="Generic placeholder image"></a>
+           <div class="media-body">
+             <div><a href="detail.html" class="text-dark">Alexander McQueen Classic Piqué Polo Shirt</a></div>
+             <span class="text-secondary"><span class="mr-3">x1</span>$50.00</span>
+             <button class="close text-danger"><i class="material-icons">close</i></button>
+           </div>
+         </div>
+         <div class="media">
+           <a href="detail.html" class="mr-2"><img class="img-fluid rounded" src="img/product/polo4-small.jpg" width="70" alt="Generic placeholder image"></a>
+           <div class="media-body">
+             <div><a href="detail.html" class="text-dark">MCQ Alexander McQueen Swallow Badge Polo Shirt</a></div>
+             <span class="text-secondary"><span class="mr-3">x1</span>$50.00</span>
+             <button class="close text-danger"><i class="material-icons">close</i></button>
+           </div>
+         </div>
+       </div>
+        <div class="modal-footer justify-content-center border-top-0">
+         <div class="btn-group" role="group" aria-label="Cart Action">
+           <!-- <a href="cart.html" class="btn btn-outline-theme" role="button">VIEW CART</a> -->
+           <a href="checkout.html" class="btn btn-theme" role="button">CHECKOUT</a>
+         </div>
+       </div>
+      </div>
+   </div>
+ </div>
+  <!-- Modal -->
+ <div class="modal fade right" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-side modal-top-right" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="cartModal-title" id="cartModal-label">You have&nbsp;<span id="cartModal-items-count">3 &nbsp;</span> items in your cart</h5>
+                 <button type="button" id="header-close" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+               <div class="media">
+                 <a href="#" class="mr-2"><img class="img-fluid rounded" src="images/items/1.jpg" width="50" alt="item image"></a>
+                 <div class="media-body">
+                   <div><a href="" class="text-dark">JACK-JOHNS Black Jacket </a></div>
+                   <span class="text-secondary">KD 50.00</span>
+                    <a href="" class="close remove">remove</a>
+                 </div>
+               </div>
+               <div class="media ">
+                 <a href="#" class="mr-2"><img class="img-fluid rounded" src="images/items/10.jpg" width="50" alt="item image"></a>
+                 <div class="media-body">
+                   <div><a href="" class="text-dark">ZARA Dress for girls </a></div>
+                   <span class="text-secondary">KD 30.00</span>
+                   <!-- <button type="button" class="close dangers" data-dismiss="" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button> -->
+                   <a href="" class="close remove">remove</a>
+                 </div>
+               </div>
+               <div class="media">
+                 <a href="#" class="mr-2"><img class="img-fluid rounded" src="images/items/14.jpg" width="50" alt="item image"></a>
+                 <div class="media-body">
+                   <div><a href="" class="text-dark">Nike Shoes - Model 456</a></div>
+                   <span class="text-secondary">KD 85.00</span>
+                   <!-- <button type="button" class="close danger" data-dismiss="" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button> -->
+                   <a href="" class="close remove">remove</a>
+                 </div>
+               </div>
+              </div>
+             <div class="modal-footer">
+               <div class="col-md-4 col-md-offset-8 btn-buy">
+                  <a href="payment.html" class="btn  btn-info form-control cart-checkout"> CHECKOUT </a>
+               </div>
+                 <!-- <button type="button" class="btn  cart-checkout">CHECKOUT</button> -->
+             </div>
+         </div>
+     </div>
+ </div>

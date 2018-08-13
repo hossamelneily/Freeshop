@@ -1,0 +1,51 @@
+{% load static %}
+{% url 'FAQ' as FAQ_url %}
+{% url 'about' as About_url %}
+<!-- ********************* Footer *********************************  -->
+<footer class="footer">
+ <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+       <div class="col-sm-3 col-md-3">
+          <h5 class="title">E-Commerce</h5>
+          <p>E-commerce website for all categories of shopping.We offer free shipping on all items and free exchange withing 14 days.</p>
+          <ul class="social-icon">
+             <a href="#" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+             <a href="#" class="social"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+             <a href="#" class="social"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+             <a href="#" class="social"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+          </ul>
+       </div>
+       <div class="col-sm-3 col-md-3">
+          <h5 class="title">My Account</h5>
+          <span class="acount-icon">
+          <a href="{{ About_url }}"><i class="fa fa-user" aria-hidden="true"></i> About us</a>
+          <a href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> Terms & Conditions</a>
+          <a href="{{ FAQ_url }}"><i class="fa fa-question-circle" aria-hidden="true"></i> FAQ</a>
+          <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i> Contact us</a>
+          </span>
+       </div>
+       <div class="col-sm-3 col-md-3">
+          <div id="appIcons" class="appIcons">
+             <h5 class="title">Download App</h5>
+             <a href="#"><img class="img-responsive" src="{% static 'media/apple.png' %}" alt=""></a>
+             <a href="#"><img class="img-responsive" src="{% static 'media/google.png' %}" alt=""></a>
+          </div>
+       </div>
+       <div class="col-sm-3 col-md-3">
+          <h5 class="title">Payment Methods</h5>
+          <p>We accept various payment methods including cash on delivery,paypal,credit and debit cards.</p>
+          <ul class="payment">
+             <li><a href="#"><i class="fa fa-cc-amex" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fa fa-credit-card" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fa fa-paypal" aria-hidden="true"></i></a></li>
+             <li><a href="#"><i class="fa fa-cc-visa" aria-hidden="true"></i></a></li>
+          </ul>
+       </div>
+    </div>
+    </div>
+    <hr>
+    <div class="row text-center"> © 2018 </div>
+ </div>
+</footer>
+      <!-- **************************************************************  -->

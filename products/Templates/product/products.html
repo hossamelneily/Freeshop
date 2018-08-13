@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+
+      {% block content %}
+      <div class="container products-container">
+         <div class="row">
+            {% include 'product/FilterSection.html' %}
+
+            <div class="col-md-9 products-collection">
+               <div class="row">
+
+                    {%  for product in object_list %}
+
+
+                    {% include 'product/ProductSnippets.html' with product=product product_color=colors product_size=sizes%}
+                    {%  endfor %}
+               </div>
+            </div>
+         </div>
+      </div>
+      {% endblock %}
+
+

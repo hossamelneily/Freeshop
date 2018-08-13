@@ -1,0 +1,149 @@
+{% load static %}
+<div class="col-sm-6 col-md-4">
+                     <article class="card-wrapper">
+                        <div class="image-holder">
+                           <a href="{{ product.get_absolute_url }}" class="image-holder__link"></a>
+
+                           <div class="image-liquid image-holder--original" style="background-image:
+                                   url(' {% if product.image %}{{ product.image.url }}{% endif %}')">
+                           </div>
+                        </div>
+                        <div class="product-description">
+                           <!-- title -->
+                            <div class="row">
+                           <h1 class="col-sm-8 product-description__title">
+                              <a href="{{ product.get_absolute_url }}">
+                              {{ product.Name }}
+                              </a>
+                           </h1>
+                            <div class="col-sm-4 fav-product text-right">
+                              <i class="heart fa fa-heart-o"></i>
+                           </div>
+                        </div>
+                           <!-- category and price -->
+                           <div class="row">
+                              <div class="col-sm-6 col-md-7 product-description__category secondary-text">
+                                 {{ product.description }}
+                              </div>
+                              <div class="col-sm-6 col-md-5 product-description__price text-right">
+
+                                  <span>KD {{ product.price }}</span>
+                              </div>
+                           </div>
+                           <!-- divider -->
+                           <hr />
+                           <!-- sizes -->
+                           <div class="sizes-wrapper">
+                              <b>Sizes</b>
+                              <br />
+                              <span class="secondary-text text-uppercase">
+                                 <ul class="list-inline">
+                                    {% for tuple in product_size %}
+                                        {% ifequal product.Name tuple.0 %}
+                                            {% ifequal tuple.1 'Extra Small' %}
+                                                    <li>xs,</li>
+                                            {% endifequal %}
+                                            {% ifequal tuple.1 'Small' %}
+                                                <li>s,</li>
+                                            {% endifequal %}
+
+                                            {% ifequal tuple.1 'Small Medium' %}
+                                                <li>sm,</li>
+                                            {% endifequal %}
+
+                                            {% ifequal tuple.1 'Medium' %}
+                                                <li>m,</li>
+                                            {% endifequal %}
+
+                                            {% ifequal tuple.1 'Large' %}
+                                                <li>l,</li>
+                                            {% endifequal %}
+
+                                            {% ifequal tuple.1 'Extra Large' %}
+                                                <li>xl,</li>
+                                            {% endifequal %}
+
+                                            {% ifequal tuple.1 'Double Large' %}
+                                                <li>xxl</li>
+                                            {% endifequal %}
+
+
+                                            {% ifequal tuple.1 'Triple Large' %}
+                                                <li>xxxl</li>
+                                            {% endifequal %}
+
+                                            {% ifequal tuple.1 '13 inch' %}
+
+                                                <li>13 ''</li>
+                                            {% endifequal %}
+
+                                            {% ifequal tuple.1 '15 inch' %}
+                                                <li>15 ''</li>
+                                            {% endifequal %}
+
+                                        {% endifequal %}
+                                     {% endfor %}
+
+                                 </ul>
+                              </span>
+                           </div>
+                           <!-- colors -->
+{#                            {{ product_color }}#}
+
+                           <div class="color-wrapper">
+                              <b>Colors</b>
+                              <br />
+                              <ul class="list-inline color-list">
+{#
+                                {% for tuple in product_color %}
+{#                                    {{ color }}#}
+
+                                    {% ifequal product.Name tuple.0 %}
+
+{#                                        {{ color.color }}#}
+{#                                            {{ []|add: color.color}}#}
+                                        {% ifequal tuple.1  'red' %}
+                                            <li class="color-list__item color-list__item--red"></li>
+                                        {% endifequal %}
+
+                                        {% ifequal tuple.1  'white' %}
+                                            <li class="color-list__item color-list__item--white"></li>
+                                        {% endifequal %}
+
+                                        {% ifequal tuple.1  'blue' %}
+                                            <li class="color-list__item color-list__item--blue"></li>
+                                        {% endifequal %}
+
+                                        {% ifequal tuple.1  'green' %}
+                                            <li class="color-list__item color-list__item--green"></li>
+                                        {% endifequal %}
+
+                                        {% ifequal tuple.1  'orange' %}
+                                            <li class="color-list__item color-list__item--orange"></li>
+                                        {% endifequal %}
+
+                                        {% ifequal tuple.1  'purple' %}
+                                            <li class="color-list__item color-list__item--purple"></li>
+                                        {% endifequal %}
+
+                                        {% ifequal tuple.1  'yellow' %}
+                                            <li class="color-list__item color-list__item--yellow"></li>
+                                        {% endifequal %}
+
+                                        {% ifequal tuple.1  'black' %}
+                                            <li class="color-list__item color-list__item--black"></li>
+                                        {% endifequal %}
+{#                                        <li class="color-list__item color-list__item--yellow"></li>#}
+
+                                    {% endifequal %}
+                                {% endfor %}
+{#                                 <li class="color-list__item color-list__item--red"></li>#}
+{#                                 <li class="color-list__item color-list__item--blue"></li>#}
+{#                                 <li class="color-list__item color-list__item--green"></li>#}
+{#                                 <li class="color-list__item color-list__item--orange"></li>#}
+{#                                 <li class="color-list__item color-list__item--purple"></li>#}
+                              </ul>
+                           </div>
+                        </div>
+                     </article>
+                  </div>
