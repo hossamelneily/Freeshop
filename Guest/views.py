@@ -20,18 +20,16 @@ class EmailActivationView(FormMixin,CsrfExemptMixin,View):
     key=None
 
     def get(self,request,key=None,*args,**kwargs):   # self will print Em
-        # print(self.__class__)
         self.key=key
-        # print(self.key)
-        # print("teeeeeeeeeeeeeeeeeeee="+str(self))
         if key is not None:
             qs=EmailActivaion.objects.filter(key__iexact=key)
             qs_confirmable = qs.confirmable()
             #to activate your email account
             if qs_confirmable.exists():
                 if qs_confirmable.first().activate():
-                    messages.success(request,"your account has been activated please login")
-                    return redirect('login')
+                    login_link = reverse('login')
+                    messages.success(request,mark_safe("your account has been activated please <a href='{link}'>login</a>".format(link=login_link)))
+                    return redirect(reverse('home'))
             # if already activated reset password page
             else:
                activated_qs=qs.filter(activated=True)

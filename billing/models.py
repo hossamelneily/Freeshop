@@ -11,8 +11,9 @@ from django.urls import reverse
 
 USER=settings.AUTH_USER_MODEL
 
-stripe.api_key=getattr(settings,'STRIPE_API_Key')
+stripe.api_key=getattr(settings,'STRIPE_API_KEY',None)
 # stripe.api_key="sk_test_D4RgyaK4XRnGuFPKOoJ4eKst"
+# print(settings.STRIPE_API_KEY)
 
 class BillingManager(models.Manager):
 

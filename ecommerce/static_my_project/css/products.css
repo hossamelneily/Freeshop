@@ -291,6 +291,18 @@ hr {
 	background-color: #ffff00;
 }
 
+.product-description .color-list__item--white {
+	background-color: #ffffff;
+}
+
+.product-description .color-list__item--brown {
+	background-color: saddlebrown;
+}
+
+.product-description .color-list__item--pink {
+	background-color: pink;
+}
+
 .pd {
 	width: 25px;
 	height: 10px;
@@ -300,6 +312,10 @@ hr {
 	border: 1px solid #e5e5e5 !important;
 
 }
+
+
+
+
 
 /*-----------------------------------------*/
 
@@ -338,6 +354,10 @@ hr {
 
 .btn-orange {
 	background-color: orange;
+}
+
+.btn-purple {
+	background-color: purple;
 }
 
 .card {

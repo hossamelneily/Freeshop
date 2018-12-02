@@ -14,6 +14,10 @@ from django.urls import reverse
 from Address.forms import AdressForm,UsePrevAdd
 from django.http import JsonResponse
 import json
+
+from django.core import serializers
+from django.http import HttpResponse
+from django.forms.models import model_to_dict
 user=get_user_model()
 
 
@@ -29,6 +33,11 @@ def cart_view_API(request):
                           "cart_subtotal":cart_obj.subtotal
                          })
 
+def Get_Cart_API(request):
+    cart_obj = cart.objects.get_or_create(request)
+    response =  serializers.serialize("json", [cart_obj,])
+    return HttpResponse(response,content_type='application/json')
+
 def cart_view(request):
 
     # i have created a function in the carts.models and i will call it instead of implementing it here.
@@ -36,11 +45,39 @@ def cart_view(request):
     return render(request,"carts/home.html",{"cart_obj":cart_obj})
 
 
+
+def Remove_from_cart_Modal(request):
+    cart_obj= cart.objects.get_or_create(request)
+    cart_obj.products.remove(product.objects.get(id=request.POST.get('product_id')))
+    request.session['cart_items'] = cart_obj.products.count()
+
+    products = cart_obj.products.all()
+    product_list=[]
+    if products.exists():
+        for x in products:
+            if x.image:
+                product_list.append({"name":x.Name,'slug':x.slug,"price":x.price,"url":x.get_absolute_url(),"id":x.id,"image_url":x.image.url})
+            else:
+                product_list.append({"name":x.Name,'slug':x.slug,"price":x.price,"url":x.get_absolute_url(),"id":x.id})
+
+
+    return JsonResponse({
+            "product_list":product_list,
+            "cart_items_count":request.session.get("cart_items", 0),
+        },safe=False
+        )
+
+
+
+
 def cart_update(request):
 
+     print("cart_update view ")
 
      prod_obj=product.objects.get_by_id(id=request.POST.get('product_id'))
      cart_obj = cart.objects.get_or_create(request)
+
+
 
      if  prod_obj in cart_obj.products.all():
          cart_obj.products.remove(prod_obj)
@@ -48,12 +85,23 @@ def cart_update(request):
      else:
          cart_obj.products.add(prod_obj)
          added=True
+
+     # products = cart_obj.products.all()
+     # if len(products) > 0 and request.is_ajax():
+     #    products_list= [{"name":x.Name,"price":x.price,"url":x.get_absolute_url(),"id":x.id} for x in products]
+     # else:
+     #     products_list=[]
+     #
+     # print(products_list)
      request.session['cart_items']=cart_obj.products.count()
      if request.is_ajax():                                       # will return json format
+
          print("Ajax is working ")
+
          json_data={
              "added":added,
-             "cart_items_count":request.session.get("cart_items",0)
+             "cart_items_count":request.session.get("cart_items",0),
+             # 'products_list': products_list
 
          }
          return JsonResponse(json_data)

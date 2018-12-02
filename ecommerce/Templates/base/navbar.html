@@ -10,75 +10,6 @@
 {% url 'cart:show' as cart_url%}
 
 
-
-{#<nav class="navbar navbar-expand-lg navbar-dark bg-dark">#}
-{#    <div class="container">#}
-{#     <a class="navbar-brand" href="#">#}
-{#        <img src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="25" alt="">#}
-{#            {% if brand_name  %}#}
-{#            {{ brand_name }}#}
-{#            {% else %}#}
-{#            ecommerce#}
-{#            {% endif %}#}
-{#     </a>#}
-{#    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
-{#        <span class="navbar-toggler-icon"></span>#}
-{#    </button>#}
-{#        <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
-{#            <ul class="navbar-nav mr-auto">#}
-{#                <li class="nav-item {% if request.path == home_url %}active {% endif %}" >#}
-{#                    <a class="nav-link"  href="{{ home_url}}">Home<span class="sr-only">(current)</span></a>#}
-{#                </li>#}
-{#                <li class="nav-item {% if request.path == contact_url %}active{% endif %}">#}
-{#                    <a class="nav-link" href="{{ contact_url }}">Contact</a>#}
-{#                </li>#}
-{##}
-{#                <li class="nav-item {% if request.path == list_url %}active{% endif %}">#}
-{#                <a class="nav-link " href="{{ list_url }}">Products</a>#}
-{#                </li>#}
-{#                {% if request.user.is_authenticated %}#}
-{#                    <li class="nav-item {% if request.path == logout_url %}active{% endif %}">#}
-{#                    <a class="nav-link " href="{{ logout_url }}">Logout</a>#}
-{#                    </li>#}
-{##}
-{#                <li class="nav-item {% if request.path == register_url %}active{% endif %}">#}
-{#                    <a class="nav-link " href="{{ register_url }}">Register</a>#}
-{#                </li>#}
-{#                {% else %}#}
-{#                    <li class="nav-item {% if request.path == login_url %}active{% endif %}">#}
-{#                    <a class="nav-link " href="{{ login_url }}">Login</a>#}
-{#                    </li>#}
-{#                {% endif %}#}
-{#                <li class="nav-item dropdown">#}
-{#                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-{#                      Account#}
-{#                    </a>#}
-{#                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
-{#                      <a class="dropdown-item {% if request.path == account_home %}active{% endif %}"  href="{{ account_home }}">Home</a>#}
-{#                      <a class="dropdown-item {% if request.path == account_home %}active{% endif %}" href="#">Billing</a>#}
-{#                      <a class="dropdown-item {% if request.path == account_home %}active{% endif %}" href="#">Preferences</a>#}
-{#                      <a class="dropdown-item {% if request.path == account_home %}active{% endif %}" href="#">History</a>#}
-{#                     {% if request.user.is_authenticated %}#}
-{#                      <div class="dropdown-divider"></div>#}
-{#                      <a class="dropdown-item {% if request.path == logout_url %}active{% endif %}" href="{{ logout_url }}">Logout</a>#}
-{#                      {% endif %}#}
-{#                    </div>#}
-{#                </li>#}
-{#                <li class="nav-item {% if request.path == cart_url %}active{% endif %}">#}
-{#                    <a class="nav-link " href="{{ cart_url }}"><span class="cart_item_counts"> {{ request.session.cart_items }}</span> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>#}
-{#                </li>#}
-{##}
-{##}
-{#            </ul>#}
-{#        {% include "snippets/searchbar.html" %}#}
-{#        </div>#}
-{#    </div>#}
-{#</nav>#}
-
-
-
-<!-- Amr Nav bar ,  Now we will make 3 bars common on all the pages -->
-
 <!-- ******************** TOP_BAR  ******************************  -->
  <nav class="topBar">
     <div class="container">
@@ -137,11 +68,11 @@
  </nav>
  <!-- ***********************************************************  -->
  <!-- *********************** MIDDEL_BAR  ***********************  -->
- <div class="middleBar">
+ <div class="middleBar hidden-xs">
     <div class="container">
        <div class="row display-table">
           <div class="col-sm-3 col-md-2 vertical-align text-left hidden-xs">
-             <a href="{{ home_url }}"> <img width="" src="{% static 'media/logo.png' %}" alt=""></a>
+             <a href="{{ home_url }}"> <img width="" src="{% static 'media/logo2.png' %}" alt=""></a>
           </div>
            <!-- the snippent of the search bar in the search component -->
           {% include 'search/snippets/searchbar.html' %}
@@ -163,7 +94,9 @@
        <div class="collapse navbar-collapse" id="last-navbar">
           <ul class="nav navbar-nav">
              <li class="dropdown mega-dropdown">
-                <a href="{% url 'products:category' category='menclothes' %}" class="dropdown-toggle disabled" data-toggle="dropdown" aria-expanded="true">Men</a>
+                 <a href="{% url 'products:category' category='menclothes' %}">Men</a>
+
+
                 <ul class="dropdown-menu mega-dropdown-menu">
                    <li class="col-sm-2">
                       <ul>
@@ -227,7 +160,8 @@
                 </ul>
              </li><li role="separator" class="divider"></li>
              <li class="dropdown mega-dropdown">
-                <a  class="dropdown-toggle disabled" href="{% url 'products:category' category='womenclothes' %}" data-toggle="dropdown"><span>Women</span></a>
+
+                <a href="{% url 'products:category' category='womenclothes' %}">Women</a>
                 <ul class="dropdown-menu mega-dropdown-menu">
                    <li class="col-sm-2">
                       <ul>
@@ -291,7 +225,7 @@
                 </ul>
              </li><li role="separator" class="divider"></li>
              <li class="dropdown mega-dropdown">
-                <a href="{% url 'products:category' category='Kidsclothes' %}" class="dropdown-toggle disabled" data-toggle="dropdown"><span>Kids</span></a>
+                <a href="{% url 'products:category' category='Kidsclothes' %}">Kids</a>
                 <ul class="dropdown-menu mega-dropdown-menu">
                    <li class="col-sm-2">
                       <ul>
@@ -355,7 +289,7 @@
                 </ul>
              </li><li role="separator" class="divider"></li>
              <li class="dropdown mega-dropdown">
-                <a href="{% url 'products:category' category='electronics' %}" class="dropdown-toggle disabled" data-toggle="dropdown"><span>Electronics</span></a>
+                <a href="{% url 'products:category' category='electronics' %}">Electronics</a>
                 <ul class="dropdown-menu mega-dropdown-menu">
                    <li class="col-sm-2">
                       <ul>
@@ -419,7 +353,7 @@
                 </ul>
              </li><li role="separator" class="divider"></li>
              <li class="dropdown mega-dropdown">
-                <a href="{% url 'products:category' category='HomeStyle' %}" class="dropdown-toggle disabled" data-toggle="dropdown"><span>Home & LifeStyle</span></a>
+                <a href="{% url 'products:category' category='HomeStyle' %}">Home & LifeStyle</a>
                 <ul class="dropdown-menu mega-dropdown-menu">
                    <li class="col-sm-2">
                       <ul>
@@ -483,7 +417,7 @@
                 </ul>
              </li><li role="separator" class="divider"></li>
              <li class="dropdown mega-dropdown">
-                <a href="{% url 'products:category' category='sports' %}" class="dropdown-toggle disabled" data-toggle="dropdown"><span>Sports</span></a>
+                <a href="{% url 'products:category' category='sports' %}">Sports</a>
                 <ul class="dropdown-menu mega-dropdown-menu">
                    <li class="col-sm-2">
                       <ul>
@@ -580,6 +514,6 @@
 {#        </div>#}
 {#    </div>#}
 
-    {% include 'login.html' with form=login_form%}
+{#    {% include 'login.html' with form=login_form%}#}
 
 {#id="click_Modal"#}

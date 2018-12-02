@@ -1,11 +1,26 @@
 {% url 'cart:show' as cart_url%}
+{% with request.session.cart_items as itemcount %}
+{% load custom_tags %}
+{% any_function as cart_obj %}
+
+
 <div class="col-sm-3 col-md-2 hidden-xs" >
+
 
       <a href="#swym-wishlist" class="wishlist">
         <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-heart-o"></i>
       </a>
-      <a href="{{ cart_url }}" class="shopping-bag" data-toggle="modal">
-{#        <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-shopping-bag"></i>#}
-          <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-shopping-bag"></i><span id="cart_item_counts"></span>
+      <a id="carticon" href="#cartModal" class="shopping-bag" data-toggle="modal">
+
+          <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-shopping-bag"></i>
+
       </a>
+      <span id="itemCount" style="display:block;">{% if itemcount%} {{ itemcount }} {% else %} 0{% endif %}</span>
+
 </div>
+
+
+{% include 'carts/CartModal.html' with product_qs=cart_obj.products.all  %}
+
+
+{% endwith %}

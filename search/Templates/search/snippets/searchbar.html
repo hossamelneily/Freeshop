@@ -8,8 +8,9 @@
 
 
 <div class="col-sm-9 col-md-10 vertical-align ">
+        <div class="row ">
          <form method="get" class="search-form" action="{% url 'search:query' %}">
-            <div class="row ">
+
                <div class="col-sm-7 col-md-7">
                   <div class="input-group">
                      <input type="text" name="q" value="{{ request.GET.q }}" class="form-control input-md" placeholder="Search for ...">
@@ -65,8 +66,10 @@
                   </select>
                </div>
                 <!-- the cart icon in the cart component -->
-               {% include 'carts/cart_icon.html' %}
-            </div>
+
          </form>
+            {% include 'carts/cart_icon.html' %}
+        </div>
+
 </div>
 

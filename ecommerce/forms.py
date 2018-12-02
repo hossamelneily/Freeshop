@@ -82,9 +82,6 @@ class Register_Form(forms.ModelForm):
         password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control','id':'password1','placeholder':'password'}),required=True)
         password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput(
             attrs={'class':'form-control','id':'password2','placeholder':'password confimration'}),required=True)
-        # gender   =  forms.ChoiceField(choices=gender, widget=forms.RadioSelect(attrs={'class':'form-control'}))
-
-
 
         class Meta:
             model = User
@@ -94,8 +91,6 @@ class Register_Form(forms.ModelForm):
                 'FirstName':forms.TextInput(attrs={'class':'form-control','placeholder':'first Name'}),
                 'LastName': forms.TextInput(attrs={'class':'form-control','placeholder': 'last Name'}),
                 'email': forms.EmailInput(attrs={'class':'form-control','placeholder': 'email address'}),
-                # 'gender':forms.RadioSelect(attrs={'class':'form-control'},choices=gender)
-
             }
 
         def __init__(self, *args, **kwargs):
@@ -111,7 +106,6 @@ class Register_Form(forms.ModelForm):
             if email is not None:
                 qs = User.objects.filter(email=email)
                 if qs.exists():
-                    # print("email exists")
                     reset_password_link=reverse('password_reset')
                     msg = '''Email already exists,  
                     <a href="{link}">reset your password?</a>'''.format(link=reset_password_link)
@@ -132,7 +126,7 @@ class Register_Form(forms.ModelForm):
             # Save the provided password in hashed format
             user = super().save(commit=False)
             user.set_password(self.cleaned_data["password1"])
-            # user.is_active=False    #need the confirmation mail
+            user.is_active=False    #need the confirmation mail
             if (request.POST.get('gender') == 'M'):
                 user.gender = 'Male'
             else:
@@ -145,23 +139,6 @@ class Register_Form(forms.ModelForm):
             return user
 
 
-class Register_page(forms.Form):
-    Username = forms.CharField(widget=forms.TextInput(
-        attrs={"class": "form-control", "placeholder": "your Name", "id": "name", "name": "koko"}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-control", "placeholder": "your Email"}))
-    Password1 = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control"}))
-    Password2 = forms.CharField(widget=forms.PasswordInput(attrs={"class": "form-control"}))
-
-
-    def clean(self):
-        if self.cleaned_data.get("Password1") != self.cleaned_data.get("Password2"):
-            raise forms.ValidationError("The passwords must match")
-        #return self.cleaned_data
-    def clean_Username(self):
-        #self.cleaned_data.get("Username")
-        qs=User.objects.filter(username=self.cleaned_data.get("Username"))
-        if qs.exists():
-            raise forms.ValidationError("Username already exists")
 
 
 

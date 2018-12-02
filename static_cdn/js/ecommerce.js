@@ -1,6 +1,12 @@
 var cart_product_ajax=$(".cart-product-ajax")
 var contact_form=$(".contact-form")
 var loginSelector = $("#login-nav")
+// var carticon_id = $('#carticon')
+var remove_from_Cart = $('#remove_from_cart')
+var remove_from_cart_btn = $('.remove_from_cart_btn')
+var cart_items_count=$("#itemCount")
+var Cart_Modal_body = $("#Cart_Modal_body")
+var cartModal_items_count = $('#cartModal-items-count')
 
 
 $(document).ready(function () {
@@ -49,15 +55,17 @@ var searchform = $(".search-form")
 
     var select_color_sizes = $('.color_based_size')
     var dl_selector= $('.detailed_info')
-
-    var dt_selector= dl_selector.find('Color')
+    //
+    // var dt_selector= dl_selector.find('Color')
     // alert(dt_selector.val())
 
     select_color_sizes.on('change' ,function(){
             result_colors=this.value
+
             str_colors="<div class='color-wrapper'><ul class=\"list-inline color-list\">"
 
             var my_colors_array = JSON.parse((result_colors).replace(/'/g, '"'))
+
 
             for (var i in my_colors_array){
 
@@ -99,8 +107,11 @@ var searchform = $(".search-form")
             }
 
             str_colors+="</ul></div>"
-        $("dd:nth-child(4)").html(str_colors)
+        // $("dd:nth-child(4)").html(str_colors)
+            $('#ul_Color_Sizes').html(str_colors)
+            console.log(str_colors)
         });
+
 
 
 
@@ -226,49 +237,207 @@ contact_form.submit(function (event) {
     })
 
 })
+
 cart_product_ajax.submit(function (event) {
     event.preventDefault()
     var $this = $(this)
     var method = $this.attr("method")
     var action = $this.attr("action")
-    var DataFormat = $this.serialize()
     var span_added= $this.find(".span-added")
-    //alert(span_added.html())
+
+    var DataFormat = $this.serialize()
+
     $.ajax({
         url: action,
         method: method,
         data: DataFormat,
         success: function (data) {
-            //console.log("success")
-            //alert(data.added)
 
-            //var $span_added = $(".span-added")
-            //alert($span_added.html())
             if(data.added){
-                span_added.html("IN Cart   <button class='btn btn-link' name='remove'>Remove?</button>")
-                //alert("true")
-                //alert(span_added.html())
+                span_added.html("<button id='RemoveFromCart' class='btn btn-danger form-control' name='remove'>Remove From Cart</button>")
+
             }else{
-                span_added.html("<button class='btn btn-success'>Add To Cart</button>")
-                //alert("false")
-            }
-            var cart_items_count=$(".cart_item_counts")
-            cart_items_count.text(data.cart_items_count)
-            //alert(cart_items_count.text)
-            if(window.location.href.indexOf("cart") != -1){
-            RefreshCart()
-            }else{
+                span_added.html("<button id='addToCart' class='btn  btn-info form-control'><i class=\"fa fa-shopping-cart\">\n" +
+                    "                            </i> Add to cart </button>")
 
             }
+
+            cart_items_count.text(data.cart_items_count)
+
+            // if(window.location.href.indexOf("cart") != -1){
+            // RefreshCart()
+            // }else{
+            //
+            // }
+            location.reload()
         },
         error: function (data) {
-            console.log(("error"))
+            console.log(("Error with adding the product to the cart!"))
         }
 
     });
 
 })
 
+
+remove_from_cart_btn.click(function (event) {
+    event.preventDefault()
+    $this= $(this)
+    // console.log($this.attr('id'))
+    data= {
+        'product_id':$this.val()
+    }
+    $.ajax({
+        url:'/cart/api/remove_form_cart/',
+        method:'post',
+        data:data,
+        success: function (data) {
+            console.log(data.product_list)
+            cart_items_count.text(data.cart_items_count)
+            if(data.product_list.length > 0){
+                var i=data.product_list.length
+                $.each(data.product_list,function (index,obj) {
+                    // console.log("obj",obj)
+                    // console.log(Cart_Modal_body.find("#Cart_Modal_content").html())
+                    Cart_Modal_body.empty()
+                    Cart_Modal_body.html("<div class=\"media\">" +
+                        "<a href="+obj.url+" class=\"mr-2\">" +
+                        "<img class=\"img-fluid rounded\" src={% if" + obj.image_url  + "%}"+  + obj.image_url + "{% endif %} width=\"50\" alt=\"item image\"></a>"+
+
+                        "<div class=\"media-body\" >"+
+                        "<div id=\"Cart_Modal_content\">" +
+                        "<a href="+ obj.url+" class=\"text-dark\">"+ obj.name + "</a></div>"+
+                        "<span class=\"text-secondary\">KD " + obj.price+ "</span>" +
+                        "<button class=\"remove_from_cart_btn btn close remove btn-link\" " +
+                        "name=\"remove\" value=\""+ obj.id + "\">remove</button>"+
+                        "</div></div>"
+                    )
+                    i--
+                })
+
+
+            }else{
+                cartModal_items_count.html(data.cart_items_count+ '&nbsp;')
+                cart_items_count.text(data.cart_items_count)
+                Cart_Modal_body.empty()
+                cart_product_ajax.find('.span-added').html("<button id='addToCart' class='btn  btn-info form-control'><i class=\"fa fa-shopping-cart\"> </i> Add to cart </button>")
+
+
+
+            }
+
+
+        },
+        error: function (error) {
+         console.log(error)
+        }
+
+    })
+})
+
+
+
+var FilterBy = $('.FilterBy')   // form class name
+    // var input = FilterBy.find("[name='filter_brand']")
+
+    FilterBy.on('change',function () {
+        var brand =""
+
+        $(':input[name=filter_brand]:checked').each(function() {
+            $this= $(this)
+            brand+=$this.val()
+            brand+=","
+        });
+
+        var size =""
+
+        $(':input[name=filter_size]:checked').each(function() {
+            $this= $(this)
+            size+=$this.val()
+            size+=","
+        });
+
+
+        var color =""
+
+        $(':input[name=filter_color]:checked').each(function() {
+            $this= $(this)
+            color+=$this.val()
+            color+=","
+        });
+
+
+        // str=str.substring(0,str.lastIndex(','))
+        // category = .split('/')
+        // new_category=category[(category.length-1)]
+        $.ajax({
+            url:$this.attr("action"),
+            method:'get',
+            data:
+                {
+                    'filter_brand':brand,
+                    'filter_size':size,
+                    'filter_color':color
+
+                },
+            success: function (data) {
+                new_str_size =""
+                new_str_brand =""
+                new_str_color=""
+
+                $.each(size.replace(/,\s*$/, "").split(','),function (index,obj) {
+                    new_str_brand+=obj+"--"
+
+                })
+
+                $.each(brand.replace(/,\s*$/, "").split(','),function (index,obj) {
+                    new_str_size+=obj+"--"
+
+                })
+
+                $.each(color.replace(/,\s*$/, "").split(','),function (index,obj) {
+                    new_str_color+=obj+"--"
+
+                })
+                // console.log(new_str.replace(/--\s*$/, ""))
+                // console.log(window.location.href)
+                window.history.pushState({}, document.title, "?"+new_str_brand.replace(/--\s*$/, "")+"--"+new_str_size.replace(/--\s*$/, "")+"--"+new_str_color.replace(/--\s*$/, ""));
+                // $("html").html(data)
+                // location.replace(new_str.replace(/--\s*$/, ""))
+                // console.log($(data).find('#products-collection-child'))
+                $('#products-collection-child').html($(data).find('#products-collection-child'))
+                // console.log(data)
+                // location.reload()
+            },
+            error: function (error) {
+                console.log(error)
+            }
+
+        })
+    })
+
+
+
+
+// var carticonModal = $('#carticonModal')
+// carticon_id.click(function (e) {
+//
+//     $.ajax({
+//          url: '/cart/api/get_cart',
+//          method: 'GET',
+//         success: function (data) {
+//          console.log(data[0].fields['products'])
+//             carticonModal.find("[name='carticon']").val(data[0].fields['products'])
+//           console.log(carticonModal.find("[name='carticon']").val(data[0].fields['products']))
+//
+//         },
+//         error: function (error) {
+//          console.log(error)
+//         }
+//
+//     })
+//
+// })
 
 function RefreshCart() {
     //alert("refreshcart")

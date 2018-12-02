@@ -4,7 +4,7 @@
    <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>E-Commerce</title>
+    <title>FreeShop</title>
     <meta name="description" content=" E-Commerce Website">
 
 
@@ -18,32 +18,39 @@
 
 </head>
 <body>
+    <header>
         {% block navbar %}
-            {% include "base/navbar.html" with brand_name=title %}
+            {% include "base/navbar.html" %}
         {% endblock navbar %}
 
 {#        <div class="container">#}
         {% if messages %}
-        <div class="alert alert-success messages my-3">
-            {% for message in messages %}
-            <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-                {{ message }}
-            </span>
-            {% endfor %}
-        </div>
-    {% endif %}
-           {% block content %}
-           {% endblock %}
+            <div class="alert alert-success messages my-3">
+                {% for message in messages %}
+                <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                    {{ message|safe }}
+                </span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </header>
+
+
+       {% block content %}
+       {% endblock %}
 {#        </div>#}
-        {% include "base/js.html" %}
+
     <!--<script>
         the custom javascript has been moved to the ecommerce.js
     </script>-->
 
         {% block javascriptStrip %}
         {% endblock javascriptStrip %}
+
+
         {% include 'base/Footer.html' %}
 
+        {% include "base/js.html" %}
 </body>
 </html>

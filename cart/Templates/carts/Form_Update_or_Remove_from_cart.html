@@ -1,21 +1,17 @@
 <form class="cart-product-ajax" method="post" class="form my-2" action="{% url "cart:update" %}"> {% csrf_token %}
             <div class="col-md-4 btn-buy">
-    {#            {{ cart }}#}
                  <input type="hidden" name="product_id" value="{{ product.id }}">   <!-- removed from here and put new_update_cart under cart-->
 
-{#                {% if  in_cart %}#}
-{#                        <button class="btn btn-link btn-sm" name="remove" style="padding:0px;cursor: pointer;">Remove?</button>#}
-{#                {% else %}#}
                     <span class="span-added">
+
                     {% if product in cart.products.all %}
 
-
-                    IN Cart   <button class="btn btn-link" name="remove">Remove?</button>
+                        <button class="btn btn-danger form-control" name="remove">Remove from cart</button>
                     {% else %}
-                        <button id="addToCart" class="btn  btn-info form-control"><i class="fa fa-shopping-cart"></i> Add to cart </button>
+                        <button id="addToCart" class="btn btn-info form-control">
+                            <i class="fa fa-shopping-cart">
+                            </i> Add to cart </button>
                     {% endif%}
                     </span>
-{#                {% endif %}#}
-
             </div>
 </form>

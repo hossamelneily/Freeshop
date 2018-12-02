@@ -9,27 +9,32 @@
                         </h5>
                      </header>
                      <div id="col-filter-brands" class="card-body collapse in">
-                        <form>
+                        <form class="FilterBy form-search" method="Get" action="{% url 'products:category' category=request.session.category %}">
                            <div class="brand-element">
-                              <input class="form-check-input" type="checkbox" value="">
+                              <input  name="filter_brand" type="checkbox" value="zara"  >
                               <span class="form-check-label">ZARA</span>
                            </div>
                            <div class="brand-element">
-                              <input class="form-check-input" type="checkbox" value="">
+                              <input  name="filter_brand" type="checkbox" value="gucci">
                               <span class="form-check-label">GUCCI</span>
                            </div>
                            <div class="brand-element">
-                              <input class="form-check-input" type="checkbox" value="">
+                              <input name="filter_brand" type="checkbox" value="american-eagle">
                               <span class="form-check-label">AMERICAN EAGLE</span>
                            </div>
                            <div class="brand-element">
-                              <input class="form-check-input" type="checkbox" value="">
+                              <input name="filter_brand" type="checkbox" value="armani">
                               <span class="form-check-label">ARMANI</span>
                            </div>
                            <div class="brand-element">
-                              <input class="form-check-input" type="checkbox" value="">
-                              <span class="form-check-label">CALVIEN CLEIN</span>
+                              <input name="filter_brand" type="checkbox" value="calvin-clien">
+                              <span class="form-check-label">CALVIEN kLEIN</span>
                            </div>
+                            <div class="brand-element">
+                              <input name="filter_brand" type="checkbox" value="jack-jones">
+                              <span class="form-check-label">JACK & JONES </span>
+                           </div>
+{#                            <button class="btn btn-info" type="submit">Filter</button>#}
                         </form>
                      </div>
                   </article>
@@ -43,9 +48,11 @@
                         </h5>
                      </header>
                      <div id="col-filter-price" class="card-body collapse in">
-                        <input type="text" placeholder="1 KD"/>
-                        to
-                        <input type="text" placeholder="1000 KD"/>
+                         <form class="FilterBy form-search" method="Get" action="{% url 'products:category' category=request.session.category %}">
+                            <input type="text" placeholder="1 KD" name="PriceFrom"/>
+                            to
+                            <input type="text" placeholder="1000 KD" name="PriceTo"/>
+                         </form>
                      </div>
                   </article>
                </div>
@@ -58,26 +65,28 @@
                         </h5>
                      </header>
                      <div id="col-filter-size" class="card-body collapse in">
+                     <form class="FilterBy form-search" method="Get" action="{% url 'products:category' category=request.session.category %}">
                         <label class="btn btn-default">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_size" value="Small">
                         <span class="form-check-label">small</span>
                         </label>
                         <label class="btn btn-default">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_size" value="Medium">
                         <span class="form-check-label">Medium</span>
                         </label>
                         <label class="btn btn-default">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_size" value="Large">
                         <span class="form-check-label">large</span>
                         </label>
                         <label class="btn btn-default">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_size" value="Extra Large">
                         <span class="form-check-label">XL</span>
                         </label>
                         <label class="btn btn-default">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_size" value="Double Large">
                         <span class="form-check-label">XXL</span>
                         </label>
+                     </form>
                      </div>
                   </article>
                </div>
@@ -90,38 +99,40 @@
                         </h5>
                      </header>
                      <div id="col-filter-color" class="card-body collapse in">
+                         <form class="FilterBy form-search" method="Get" action="{% url 'products:category' category=request.session.category %}">
                         <label class="btn btn-red">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_color" value="red">
                         <span class="form-check-label">Red</span>
                         </label>
                         <label class="btn btn-green">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_color" value="green">
                         <span class="form-check-label">Green</span>
                         </label>
                         <label class="btn btn-blue">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_color" value="blue">
                         <span class="form-check-label">Blue</span>
                         </label>
                         <label class="btn btn-yellow">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_color" value="yellow">
                         <span class="form-check-label">Yellow</span>
                         </label>
                         <label class="btn btn-black">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_color" value="black">
                         <span class="form-check-label">Black</span>
                         </label>
                         <label class="btn btn-white">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_color" value="white">
                         <span class="form-check-label">white</span>
                         </label>
-                        <label class="btn btn-pink">
-                        <input class="" type="checkbox" name="myradio" value="">
-                        <span class="form-check-label">Pink</span>
+                        <label class="btn btn-purple">
+                        <input class="" type="checkbox" name="filter_color" value="purple">
+                        <span class="form-check-label">Purple</span>
                         </label>
                         <label class="btn btn-orange">
-                        <input class="" type="checkbox" name="myradio" value="">
+                        <input class="" type="checkbox" name="filter_color" value="orange">
                         <span class="form-check-label">Orange</span>
                         </label>
+                         </form>
                      </div>
                   </article>
                </div>

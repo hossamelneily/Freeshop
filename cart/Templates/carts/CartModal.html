@@ -1,0 +1,35 @@
+<div class="modal fade right" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-side modal-top-right" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="cartModal-title" id="cartModal-label">You have&nbsp;<span id="cartModal-items-count">{{ product_qs.count }} &nbsp;</span> items in your cart</h5>
+                 <button type="button" id="header-close" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body" id="Cart_Modal_body">
+             {% for product in product_qs %}
+               <div class="media">
+                 <a href="{{ product.get_absolute_url }}" class="mr-2"><img class="img-fluid rounded" src="{% if product.image %} {{ product.image.url }}{% endif %}" width="50" alt="item image"></a>
+                 <div class="media-body" >
+                   <div id="Cart_Modal_content">
+                       <a href="{% url  'product:detail' slug=product.slug%}" class="text-dark">{{ product.Name }} </a></div>
+                   <span class="text-secondary">KD {{ product.price }}</span>
+
+                         <button id="remove_from_cart{{ forloop.counter }}" class="remove_from_cart_btn btn close remove btn-link" name="remove" value="{{ product.id }}">remove</button>
+
+                 </div>
+               </div>
+             {% endfor %}
+             </div>
+
+
+             <div class="modal-footer">
+               <div class="col-md-4 col-md-offset-8 btn-buy">
+                  <a href="#" class="btn btn-info form-control cart-checkout"> CHECKOUT </a>
+               </div>
+                 <!-- <button type="button" class="btn  cart-checkout">CHECKOUT</button> -->
+             </div>
+         </div>
+     </div>
+ </div>

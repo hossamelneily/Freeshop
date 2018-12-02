@@ -89,6 +89,108 @@ class ProductQueryset(models.query.QuerySet):
     def SubTypes(self,subtype):
         return self.filter(tags__SubType=subtype)
 
+
+    # def Filter_brand(self,brands):
+    #     brands_split = brands.split(',')
+    #     if len(brands_split)>0:
+    #         q_objects=Q()
+    #         for item in brands_split:
+    #             q_objects.add(Q(tags__Brand=item),Q.OR)
+    #         qs = self.filter(q_objects).distinct()
+    #         qs_color = product().Search_for_colors_in_ProductColorTable(qs)
+    #         qs_size = product().Search_for_sizes_in_ProductSizeTable(qs)
+    #     return  qs,qs_color,qs_size
+    #
+    # def Filter_size(self,sizes):
+    #     sizes_split = sizes.split(',')
+    #     if len(sizes_split)>0:
+    #         q_objects=Q()
+    #         for item in sizes_split:
+    #             q_objects.add(Q(productsize__size=item),Q.OR)
+    #         qs = self.filter(q_objects).distinct()
+    #         qs_color = product().Search_for_colors_in_ProductColorTable(qs)
+    #         qs_size = product().Search_for_sizes_in_ProductSizeTable(qs)
+    #     return  qs,qs_color,qs_size
+    #
+    # def Filter_color(self, colors):
+    #     colors_split = colors.split(',')
+    #     if len(colors_split) > 0:
+    #         q_objects = Q()
+    #         for item in colors_split:
+    #             q_objects.add(Q(productcolor__color=item), Q.OR)
+    #         qs = self.filter(q_objects).distinct()
+    #         qs_color = product().Search_for_colors_in_ProductColorTable(qs)
+    #         qs_size = product().Search_for_sizes_in_ProductSizeTable(qs)
+    #     return qs, qs_color, qs_size
+    #
+    # def Filter_Price(self,PriceFrom,PriceTo):
+    #
+    #     if PriceFrom and PriceTo:
+    #         lookup = Q(price__gte=PriceFrom) & Q(price__lte=PriceTo)
+    #
+    #     elif PriceFrom and not PriceTo:
+    #         lookup = Q(price__gte=PriceFrom)
+    #     elif PriceTo and not PriceFrom:
+    #         lookup=Q(price__lte=PriceTo)
+    #
+    #     qs = self.filter(lookup).distinct()
+    #     qs_color = product().Search_for_colors_in_ProductColorTable(qs)
+    #     qs_size = product().Search_for_sizes_in_ProductSizeTable(qs)
+    #
+    #     return qs, qs_color, qs_size
+
+    def Filter_by(self,brands,sizes,colors,PriceFrom,PriceTo):
+        brands_split = brands.split(',')
+        sizes_split = sizes.split(',')
+        colors_split = colors.split(',')
+        qs = product.objects.none()
+        filter_by_price =False
+        # print(type(PriceFrom))
+        if len(brands_split) > 0:
+            q_objects = Q()
+            for item in brands_split:
+                q_objects.add(Q(tags__Brand=item), Q.OR)
+            qs = self.filter(q_objects).distinct()
+
+
+        if len(sizes_split) > 0:
+            q_objects = Q()
+            for item in sizes_split:
+                q_objects.add(Q(productsize__size=item), Q.OR)
+            qs = qs | self.filter(q_objects).distinct()
+
+
+        if len(colors_split) > 0:
+            q_objects = Q()
+            for item in colors_split:
+                q_objects.add(Q(productcolor__color=item), Q.OR)
+            qs = qs | self.filter(q_objects).distinct()
+
+        if PriceFrom and PriceTo:
+            # print("price")
+            filter_by_price =True
+            lookup = Q(price__gte=PriceFrom) & Q(price__lte=PriceTo)
+
+        elif PriceFrom and not PriceTo:
+            # print("price")
+            filter_by_price = True
+            lookup = Q(price__gte=PriceFrom)
+        elif PriceTo and not PriceFrom:
+            # print("price")
+            filter_by_price = True
+            lookup = Q(price__lte=PriceTo)
+
+        if filter_by_price:
+            qs = qs | self.filter(lookup).distinct()
+
+        qs = qs.distinct()
+        qs_color = product().Search_for_colors_in_ProductColorTable(qs)
+        qs_size = product().Search_for_sizes_in_ProductSizeTable(qs)
+        return qs,qs_color,qs_size
+
+
+
+
 class ProductManager(models.Manager):
     def get_by_id(self,id):
         return self.get_queryset().filter(id=id).first()     #product.objects == self.get_queryset()
@@ -150,6 +252,48 @@ class ProductManager(models.Manager):
         return self.get_queryset().active().search(q,type,subtype)
 
 
+    def Filter_by(self,brands,sizes,colors,pricefrom,priceto):
+        return self.get_queryset().Filter_by(brands,sizes,colors,pricefrom,priceto)
+
+    # def Filter_brand(self,brands):
+    #     return self.get_queryset().Filter_brand(brands)
+    #
+    # def Filter_size(self,sizes):
+    #     return self.get_queryset().Filter_size(sizes)
+    #
+    # def Filter_color(self,colors):
+    #     return self.get_queryset().Filter_color(colors)
+    #
+    # def Filter_price(self,pricefrom,priceto):
+    #     return self.get_queryset().Filter_Price(pricefrom,priceto)
+    #
+    # def Filter_Brand_Size(self,brands,sizes):
+    #     return self.get_queryset().Filter_brand(brands)[0].Filter_size(sizes)
+    #
+    # def Filter_Brand_Size_color(self,brands,sizes,colors):
+    #     return self.get_queryset().Filter_brand(brands)[0].Filter_size(sizes)[0].Filter_color(colors)
+    #
+    # def Filter_Brand_color(self,brands,colors):
+    #     return self.get_queryset().Filter_brand(brands)[0].Filter_color(colors)
+    #
+    # def Filter_Size_color(self,sizes,colors):
+    #     return self.get_queryset().Filter_size(sizes)[0].Filter_color(colors)
+    #
+    #
+    # def Filter_Brand_Size_Price(self,brands,sizes,pricefrom,priceto):
+    #     return self.get_queryset().Filter_brand(brands)[0].Filter_size(sizes)[0].Filter_Price(pricefrom,priceto)
+    # def Filter_Brand_Size_color_price(self,brands,sizes,colors,pricefrom,priceto):
+    #     return self.get_queryset().Filter_brand(brands)[0].Filter_size(sizes)[0].Filter_color(colors)[0].Filter_Price(pricefrom,priceto)
+    # def Filter_Brand_color_price(self,brands,colors,pricefrom,priceto):
+    #     return self.get_queryset().Filter_brand(brands)[0].Filter_color(colors)[0].Filter_Price(pricefrom,priceto)
+    # def Filter_Size_color_price(self,sizes,colors,pricefrom,priceto):
+    #     return self.get_queryset().Filter_size(sizes)[0].Filter_color(colors)[0].Filter_Price(pricefrom,priceto)
+    # def Filter_brand_price(self,brands,pricefrom,priceto):
+    #     return self.get_queryset().Filter_brand(brands)[0].Filter_Price(pricefrom,priceto)
+    # def Filter_size_price(self,sizes,pricefrom,priceto):
+    #     return self.get_queryset().Filter_size(sizes)[0].Filter_Price(pricefrom,priceto)
+    # def Filter_color_price(self,colors,pricefrom,priceto):
+    #     return self.get_queryset().Filter_color(colors)[0].Filter_Price(pricefrom,priceto)
 COLOR=(
     ('white','White'),
     ('red','Red'),
@@ -157,11 +301,13 @@ COLOR=(
     ('blue','Blue'),
     ('yellow','Yellow'),
     ('green','Green'),
-    ('purple','Purple')
+    ('purple','Purple'),
+    ('orange','Orange'),
+    ('pink','Pink'),
 )
 
 SIZE = (
-('Extra Small', 'XS'),
+('Extra Small', 'XS'),  #(DB,Display)
 ('Small', 'S'),
 ('Medium', 'M'),
 ('Small Medium', 'sm'),

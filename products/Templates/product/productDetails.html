@@ -8,20 +8,20 @@
           <div class="row ">
              <div class="col-sm-3 col-md-3">
                 <ul class="preview-thumbnail nav nav-tabs" role="tablist">
-                   <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="{{ object.image.url }}"/></a></li>
-                   <li><a data-target="#pic-2" data-toggle="tab"><img src="{{ object.img1.url }}"  /></a></li>
-                   <li><a data-target="#pic-3" data-toggle="tab"><img src="{{ object.img2.url }}"  /></a></li>
-                   <li><a data-target="#pic-4" data-toggle="tab"><img src="{{ object.img3.url }}"  /></a></li>
-                   <li><a data-target="#pic-5" data-toggle="tab"> <img src="{{ object.img4.url }}"  /></a></li>
+                   <li class="active"><a data-target="#pic-1" data-toggle="tab">{% if object.image %}<img src="{{ object.image.url }}"/>{% endif %}</a></li>
+                   <li><a data-target="#pic-2" data-toggle="tab">{% if object.img1 %}<img src="{{ object.img1.url }}"  />{% endif %}</a></li>
+                   <li><a data-target="#pic-3" data-toggle="tab">{% if object.img2 %}<img src="{{ object.img2.url }}"  />{% endif %}</a></li>
+                   <li><a data-target="#pic-4" data-toggle="tab">{% if object.img3 %}<img src="{{ object.img3.url }}"  />{% endif %}</a></li>
+                   <li><a data-target="#pic-5" data-toggle="tab">{% if object.img4 %}<img src="{{ object.img4.url }}"  />{% endif %}</a></li>
                 </ul>
              </div>
              <div class="col-sm-9 col-md-9">
                 <div class="preview-pic tab-content" id="tabs">
-                   <div class="tab-pane active" id="pic-1"><img src="{{ object.image.url }}" class="img-responsive"/></div>
-                   <div class="tab-pane" id="pic-2"><img src="{{ object.img1.url }}" class="img-responsive"/></div>
-                   <div class="tab-pane" id="pic-3"><img src="{{ object.img2.url }}" class="img-responsive"/></div>
-                   <div class="tab-pane" id="pic-4"><img src="{{ object.img3.url }}" class="img-responsive"/></div>
-                   <div class="tab-pane" id="pic-5"><img src="{{ object.img4.url }}" class="img-responsive"/></div>
+                   <div class="tab-pane active" id="pic-1">{% if object.image %} <img src="{{ object.image.url }}" class="img-responsive"/> {% endif %}</div>
+                   <div class="tab-pane" id="pic-2">{% if object.img1 %}<img src="{{ object.img1.url }}" class="img-responsive"/>{% endif %}</div>
+                   <div class="tab-pane" id="pic-3">{% if object.img2 %}<img src="{{ object.img2.url }}" class="img-responsive"/>{% endif %}</div>
+                   <div class="tab-pane" id="pic-4">{% if object.img3 %}<img src="{{ object.img3.url }}" class="img-responsive"/>{% endif %}</div>
+                   <div class="tab-pane" id="pic-5">{% if object.img4 %}<img src="{{ object.img4.url }}" class="img-responsive"/>{% endif %}</div>
                 </div>
              </div>
           </div>
@@ -33,8 +33,9 @@
           <div class="item-price mb-3">
              <span class="currency">KWD </span><span class="num">{{ object.price }}</span>
           </div>
+
           <dl class="item-desc" >
-             <dt >Description</dt>
+             <dt>Description</dt>
              <dd>
                 <p>{{ object.description }}</p>
              </dd>
@@ -42,12 +43,20 @@
           <dl class="row item-props-group detailed_info">
              <dt class="col-sm-5">  Designer Style ID:</dt>
              <dd class="col-sm-7">MLB0583PLE002N</dd>
-             <dt class="col-sm-5 Color">Color:</dt>
-             <dd class="col-sm-7"><p  class='color-list__item color-list__item--green'>green</p> </dd>
              <dt class="col-sm-5">Lining Composition:</dt>
              <dd class="col-sm-7">acetate 68% </dd>
              <dt class="col-sm-5">Lining Composition:</dt>
+
+
+
              <dd class="col-sm-7">polyester 32% </dd>
+              <dt class="col-sm-5 Color">Color:</dt>
+
+             <dd class="col-sm-7 product-description" id="ul_Color_Sizes" style="height:23px;border-top:rgba(0,0,0,.0001)">
+
+             </dd>
+
+
              <dt class="col-sm-5">Outer Composition:</dt>
              <dd class="col-sm-7">sheepskin 100% </dd>
              <dt class="col-sm-5">Washing Instructions:</dt>
@@ -56,6 +65,7 @@
           </dl>
           <hr class="col-sm-11 offset-sm-1">
           <div class="prop-wrapper">
+
              <div class="row item-prop">
                 <div class="col-md-4 ">Size</div>
                 <div class="col-md-4 offset-md-4">
@@ -67,13 +77,13 @@
 
 
                            {% ifequal sizes.0 'Extra Small' %}
-                               <option value="{{ xs }}|safe">XSmall</option>
+                               <option value="{{ xs }}">XSmall</option>
 {#                               <input type="hidden" id="myColor_es" name="variable" value="{{ xs }}">#}
 
                             {% endifequal %}
 
                             {% ifequal sizes.0 'Small' %}
-                                <option value="{{ s }}|safe">Small</option>
+                                <option value="{{ s }}">Small</option>
 {#                                <input type="hidden" id="myColor_s" name="variable" value="{{ s }}">#}
                             {% endifequal %}
 
@@ -92,34 +102,34 @@
                             {% endifequal %}
 
                             {% ifequal sizes.0 'Large' %}
-                                <option value="{{ l }}|safe">Large</option>
+                                <option value="{{ l }}">Large</option>
 {#                                    <input type="hidden" id="myColor_l" name="variable" value="{{ l }}">#}
                             {% endifequal %}
 
                             {% ifequal sizes.0 'Extra Large' %}
-                                <option value="{{ xl }}|safe">XLarge</option>
+                                <option value="{{ xl }}">XLarge</option>
 {#                                    <input type="hidden" id="myColor_xl" name="variable" value="{{ xl }}">#}
                             {% endifequal %}
 
                             {% ifequal sizes.0 'Double Large' %}
-                                <option value="{{ xxl }}|safe">XXLarge</option>
+                                <option value="{{ xxl }}">XXLarge</option>
 {#                                    <input type="hidden" id="myColor_xxl" name="variable" value="{{ xxl }}">#}
                             {% endifequal %}
 
 
                             {% ifequal sizes.0 'Triple Large' %}
-                                <option value="{{ xxxl }}|safe">XXXLarge</option>
+                                <option value="{{ xxxl }}">XXXLarge</option>
 {#                                    <input type="hidden" id="myColor_xxxl" name="variable" value="{{ xxxl }}">#}
                             {% endifequal %}
 
                             {% ifequal sizes.0 '13 inch' %}
 
-                                <option value="{{ 13inch }}|safe">13 ''</option>
+                                <option value="{{ 13inch }}">13 ''</option>
 {#                                    <input type="hidden" id="myColor_13" name="variable" value="{{ 13inch }}">#}
                             {% endifequal %}
 
                             {% ifequal sizes.0 '15 inch' %}
-                                <option value="{{ 15inch }}|safe">15 ''</option>
+                                <option value="{{ 15inch }}">15 ''</option>
 {#                                     <input type="hidden" id="myColor_15" name="variable" value="{{ 15inch }}">#}
                             {% endifequal %}
 

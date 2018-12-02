@@ -6,7 +6,9 @@ from django.conf import settings
 from orders.models import orders
 import stripe
 
-STRIPE_PUB_Key = getattr(settings,'STRIPE_PUB_Key')
+STRIPE_PUB_Key = getattr(settings,'STRIPE_PUB_KEY',None)
+
+# print(settings.STRIPE_PUB_KEY)
 
 def paymentMethod(request):
 

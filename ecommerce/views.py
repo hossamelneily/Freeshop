@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.shortcuts import render,get_object_or_404,redirect
-from .forms import Contact_form,login_page,Register_page,GuestForm,Register_Form
+from .forms import Contact_form,login_page,GuestForm,Register_Form
 from django.utils.http import is_safe_url
 from Guest.models import Guest
 from django.http import JsonResponse,HttpResponse
@@ -12,6 +12,7 @@ from Guest.signals import User_logged_in
 from django.views.generic import CreateView,FormView,DetailView
 from ecommerce.mixins import NextUrlMixin,RequestformattachMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.html import mark_safe
 
 
 def home_page(request):
@@ -294,11 +295,13 @@ user=get_user_model()
 
 class RegisterView(SuccessMessageMixin,CreateView):
     form_class = Register_Form            #this will use customized save() function this is equivalent to Register_form.save()
-    template_name = 'register.html'
+    template_name = 'Index/Register/register.html'
+
     success_url = '/'
-    success_message = '%(FirstName)s your profile has been created successfully'
+    success_message = mark_safe('%(FirstName)s your profile has been created successfully,please check your email to activate your account')
 
     def get_form_kwargs(self,*args,**kwargs):
+        # login_link = reverse('home')
         kwargs=super().get_form_kwargs(*args,**kwargs)
         kwargs['request']=self.request
         return kwargs

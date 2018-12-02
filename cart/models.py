@@ -54,6 +54,7 @@ class cart(models.Model):
     def __str__(self):
         return str(self.id)
 
+
 def cal_total(sender,instance,action,*args,**kwargs):
     # print(action)
     if action=="post_add" or action=="post_remove" or action=="post_clear":
